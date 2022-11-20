@@ -25,7 +25,7 @@ public class GridManager : MonoBehaviour
 
     }
     private void Update() {
-        if (Input.GetKeyDown(KeyCode.D)) {
+        if (Input.GetKeyDown(KeyCode.U)) {
             DisableFieldByIndex((int)temp.x, (int)temp.y);
         }
     }
