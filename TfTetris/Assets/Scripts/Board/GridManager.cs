@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class GridManager : MonoBehaviour
 {
-    [SerializeField] private int rowNumber;
     [SerializeField] private int columnNumber;
+    [SerializeField] private int rowNumber;
     [SerializeField] private Field fieldPrefab;
     public List<Field> fields;
 
@@ -36,8 +36,8 @@ public class GridManager : MonoBehaviour
         GetFieldByPointerPosition(Pointer.pointerPosition);
     }
     private void SpawnGrid() {
-        for (int rowIndex = 0; rowIndex < rowNumber; rowIndex++) {
-            for (int columnIndex = 0; columnIndex < columnNumber; columnIndex++) {
+        for (int rowIndex = 0; rowIndex < columnNumber; rowIndex++) {
+            for (int columnIndex = 0; columnIndex < rowNumber; columnIndex++) {
                 if (rowIndex % 2 == 0 && columnIndex % 2 == 0 || rowIndex % 2 == 1 && columnIndex % 2 == 1) {
                     SpawnPosition(rowIndex, columnIndex, true);
                 }

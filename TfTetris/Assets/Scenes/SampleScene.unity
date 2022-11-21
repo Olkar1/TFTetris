@@ -201,7 +201,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
   m_LocalRotation: {x: 0.46174863, y: 0, z: 0, w: 0.8870109}
-  m_LocalPosition: {x: 45, y: 80, z: -40}
+  m_LocalPosition: {x: 75, y: 80, z: -40}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -666,8 +666,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   monsterIconContainer: {fileID: 1876085845}
   numbersOfIcons: 5
-  monsterIcon: {fileID: 1988016821498788613, guid: 47bc61ac953b5854d865ac9e3eebb950,
-    type: 3}
+  monsterIcons:
+  - {fileID: 5642070693943774616, guid: 67ffc010f78bed74bad738daed4ab527, type: 3}
+  - {fileID: 4347226590030313839, guid: 9bbf4b309f26af849a2fd0ae018d5658, type: 3}
+  - {fileID: 4621136533970593153, guid: 05b1933f125a49d4e82443475e5093c2, type: 3}
 --- !u!1 &1090188061
 GameObject:
   m_ObjectHideFlags: 0
@@ -1156,6 +1158,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3483143162511616811, guid: b92c9d0cb44b10f4296d8ae68ec3135c,
+        type: 3}
+      propertyPath: rowNumber
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3483143162511616811, guid: b92c9d0cb44b10f4296d8ae68ec3135c,
+        type: 3}
+      propertyPath: columnNumber
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 3483143162511616812, guid: b92c9d0cb44b10f4296d8ae68ec3135c,
         type: 3}

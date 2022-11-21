@@ -9,7 +9,7 @@ public class Shop : MonoBehaviour
     private float containerWidth;
 
     [SerializeField] private int numbersOfIcons;
-    [SerializeField] private MonsterShopIcon monsterIcon;
+    [SerializeField] private List<MonsterShopIcon> monsterIcons;
     private void Awake() {
         containerWidth = monsterIconContainer.rect.width;
         SpawnIcons(numbersOfIcons);
@@ -34,11 +34,8 @@ public class Shop : MonoBehaviour
         float offset = 0;
 
         for (int iconIndex =0; iconIndex <numberOfIcons; iconIndex++) {
-            var icon = Instantiate(monsterIcon); ///SpawnRandomIcon
+            var icon = Instantiate(GetRandomMonster()); ///SpawnRandomIcon
             RectTransform iconRect = icon.GetComponent<RectTransform>();
-            ///Temp
-            icon.transform.GetChild(0).GetChild(0).GetComponent<Image>().color = new Color(Random.Range(0f,1f), Random.Range(0f, 1f), Random.Range(0f, 1f));
-            ///
             if (!iconWidthSet) {
                 iconWidth = iconRect.rect.width;
             }
@@ -54,6 +51,10 @@ public class Shop : MonoBehaviour
             icon.transform.parent = monsterIconContainer.transform;
             iconRect.anchoredPosition = new Vector3(conteinerLeft + iconWidth / 2 + iconWidth * iconIndex + offset, 0,0) ;
         }
+    }
+    private MonsterShopIcon GetRandomMonster() {
+        int i = Random.Range(0, monsterIcons.Count);
+        return monsterIcons[i];
     }
     private void ClearShop() {
         int childCount = monsterIconContainer.childCount;
