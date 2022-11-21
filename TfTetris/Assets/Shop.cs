@@ -9,7 +9,7 @@ public class Shop : MonoBehaviour
     private float containerWidth;
 
     [SerializeField] private int numbersOfIcons;
-    [SerializeField] private GameObject monsterIcon;
+    [SerializeField] private MonsterShopIcon monsterIcon;
     private void Awake() {
         containerWidth = monsterIconContainer.rect.width;
         SpawnIcons(numbersOfIcons);
