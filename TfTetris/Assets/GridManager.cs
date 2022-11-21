@@ -10,11 +10,15 @@ public class GridManager : MonoBehaviour
     [SerializeField] private Field fieldPrefab;
     public List<Field> fields;
 
+    public Field currentActiveField;
+    private int fieldActivationOffset = 1;
+
 
     [SerializeField]private bool createOnStart;
-
+    public static GridManager instance;
     public Vector2 temp;
     private void Awake() {
+        instance = this;
         ClearFields();
     }
     void Start()
@@ -28,6 +32,8 @@ public class GridManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.U)) {
             DisableFieldByIndex((int)temp.x, (int)temp.y);
         }
+
+        GetFieldByPointerPosition(Pointer.pointerPosition);
     }
     private void SpawnGrid() {
         for (int rowIndex = 0; rowIndex < rowNumber; rowIndex++) {
@@ -68,6 +74,18 @@ public class GridManager : MonoBehaviour
             if (currentFieldCoordinate.x == x && currentFieldCoordinate.y == y) {
                 return fields[i];
             }
+        }
+        return null;
+    }
+    private Field GetFieldByPointerPosition(Vector3 pointerPosition) {
+        foreach (Field field in fields) {
+            if (pointerPosition.x > field.leftDownCorner.x + fieldActivationOffset && pointerPosition.x < field.rightDownCorner.x - fieldActivationOffset &&
+                pointerPosition.z > field.leftDownCorner.z + +fieldActivationOffset && pointerPosition.z < field.leftUpperCorner.z - fieldActivationOffset) {
+                field.ActiveOutline(true);
+                return currentActiveField = field;
+            }
+            currentActiveField = null;
+            field.ActiveOutline(false);
         }
         return null;
     }
