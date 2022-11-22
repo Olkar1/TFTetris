@@ -7,6 +7,8 @@ public class Field : MonoBehaviour
 
     public Vector2 coordinates;
     private Vector2 worldCoordinates;
+    public int column;
+    public int row;
     /// <summary>
     /// ORIGIN TRANSFORM IS IN THE LEFT DOWN CORNER
     /// AXIS swaped in inspector wtf why! TODO

@@ -68,10 +68,10 @@ public class GridManager : MonoBehaviour
         Field field = GetFieldByIndex(x, y);
         field.gameObject.SetActive(false);
     }
-    private Field GetFieldByIndex(int x, int y) {
+    public  Field GetFieldByIndex(int column, int row) {
         for (int i = 0; i < fields.Count; i++) {
             Vector2 currentFieldCoordinate = fields[i].coordinates;
-            if (currentFieldCoordinate.x == x && currentFieldCoordinate.y == y) {
+            if (currentFieldCoordinate.x == column && currentFieldCoordinate.y == row) {
                 return fields[i];
             }
         }
@@ -88,5 +88,11 @@ public class GridManager : MonoBehaviour
             field.ActiveOutline(false);
         }
         return null;
+    }
+    public Field GetUpFrontField(Field searchField) {
+
+        float searchColumn = searchField.coordinates.x;
+        float searchRow = searchField.coordinates.y;
+        return GetFieldByIndex((int)searchColumn, (int)(searchRow + 1));
     }
 }
