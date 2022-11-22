@@ -15,6 +15,7 @@ public class MonsterShopIcon : MonoBehaviour
     }
 
     private void SpawnMonster() {
+        if(GameManager.gameStatus != GameManager.GameStatus.shoping) { return; }
         Monster newMonster = Instantiate(monster);
         newMonster.isHold = true;
     }

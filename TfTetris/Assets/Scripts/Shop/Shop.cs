@@ -10,42 +10,39 @@ public class Shop : MonoBehaviour
 
     [SerializeField] private int numbersOfIcons;
     [SerializeField] private List<MonsterShopIcon> monsterIcons;
+    private bool locked = false;
     private void Awake() {
         containerWidth = monsterIconContainer.rect.width;
-        SpawnIcons(numbersOfIcons);
     }
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.D)) {
             ClearShop();
-            SpawnIcons(numbersOfIcons);
+            SpawnIcons();
         }
     }
-    private void SpawnIcons(int numberOfIcons) {
+    public void SpawnIcons() {
+        if (GameManager.gameStatus != GameManager.GameStatus.shoping) {
+            return;
+        }
         float conteinerLeft = -containerWidth / 2;
         bool iconWidthSet = false;
         float iconWidth = 0;
         float offset = 0;
 
-        for (int iconIndex =0; iconIndex <numberOfIcons; iconIndex++) {
+        for (int iconIndex =0; iconIndex < numbersOfIcons; iconIndex++) {
             var icon = Instantiate(GetRandomMonster()); ///SpawnRandomIcon
             RectTransform iconRect = icon.GetComponent<RectTransform>();
             if (!iconWidthSet) {
                 iconWidth = iconRect.rect.width;
             }
-            if (iconWidth * numberOfIcons > containerWidth) {
-                iconWidth = containerWidth / numberOfIcons;
+            if (iconWidth * numbersOfIcons > containerWidth) {
+                iconWidth = containerWidth / numbersOfIcons;
                 iconRect.sizeDelta = new Vector2(iconWidth, iconRect.rect.height);
                 iconRect.GetChild(0).GetComponent<RectTransform>().sizeDelta = new Vector2(iconWidth, iconRect.rect.height);
             }
             else {
-                offset = (containerWidth - iconWidth * numberOfIcons)/2;
+                offset = (containerWidth - iconWidth * numbersOfIcons) /2;
             }
 
             icon.transform.parent = monsterIconContainer.transform;
@@ -57,10 +54,12 @@ public class Shop : MonoBehaviour
         return monsterIcons[i];
     }
     private void ClearShop() {
+        if (GameManager.gameStatus != GameManager.GameStatus.shoping) {
+            return;
+        }
         int childCount = monsterIconContainer.childCount;
         for (int i = 0; i<childCount; i++) {
             Destroy(monsterIconContainer.transform.GetChild(i).gameObject);
         }
     }
-
 }
