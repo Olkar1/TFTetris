@@ -67,6 +67,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: Naga
       objectReference: {fileID: 0}
+    - target: {fileID: 9176727281805745219, guid: 007b32867b23d704d931270a430fa6d3,
+        type: 3}
+      propertyPath: radiationField
+      value: 
+      objectReference: {fileID: 11400000, guid: eaa3ac64f8fc992449c53d8332973c72,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 007b32867b23d704d931270a430fa6d3, type: 3}
 --- !u!4 &5403385251170689359 stripped

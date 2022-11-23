@@ -26,6 +26,7 @@ public class Field : MonoBehaviour
     [SerializeField] private MeshRenderer meshRenderer;
     [SerializeField] private Transform modelPosition;
     [SerializeField] private GameObject outline;
+    
     private float meshSize;
 
     public bool empty = true;

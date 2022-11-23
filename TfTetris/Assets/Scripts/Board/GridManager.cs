@@ -77,6 +77,9 @@ public class GridManager : MonoBehaviour
         }
         return null;
     }
+    public Vector2 GetIndexByField(Field field) {
+        return field.coordinates;
+    }
     private Field GetFieldByPointerPosition(Vector3 pointerPosition) {
         foreach (Field field in fields) {
             if (pointerPosition.x > field.leftDownCorner.x + fieldActivationOffset && pointerPosition.x < field.rightDownCorner.x - fieldActivationOffset &&
