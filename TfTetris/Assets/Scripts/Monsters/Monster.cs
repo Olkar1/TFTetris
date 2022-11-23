@@ -8,7 +8,7 @@ public class Monster : MonoBehaviour
     public Field positionField;
     public radiationField radiationField;
     bool reachEnd = false;
-    bool move = false
+    public bool move = false;
 
     void Start()
     {
@@ -21,26 +21,28 @@ public class Monster : MonoBehaviour
         if (isHold) {
             transform.position = Pointer.pointerPosition;
             Field currentField = GridManager.instance.currentActiveField;
-            if (Input.GetMouseButton(0) && currentField && currentField.empty) {
+            if (Input.GetMouseButton(0) && currentField && !currentField.GetMonster()) {
                 transform.position = currentField.middlePos;
-                currentField.empty = false;
+                currentField.SetMonster(this);
                 positionField = currentField;
                 Debug.LogError(positionField.name);
                 isHold = false;
             }
         }
-        if (GameManager.gameStatus == GameManager.GameStatus.fighting) {
+        if (move) {
             Field upfrontField = GridManager.instance.GetUpFrontField(positionField);
-            if (upfrontField && upfrontField.empty) {
-                positionField.empty = true;
+            if (upfrontField && !upfrontField.GetMonster()) {
+                positionField.SetMonster(null);
                 positionField = upfrontField;
-                positionField.empty = false;
+                //positionField.SetMonster(this);
                 transform.position = positionField.middlePos;
             }
             else {
                 if (!reachEnd) {
+                    positionField.SetMonster(this);
                     SpawnAttack();
                     reachEnd = true;
+                    move = false;
                 }
             }
         }

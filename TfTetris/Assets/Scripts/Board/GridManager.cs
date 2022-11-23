@@ -98,4 +98,7 @@ public class GridManager : MonoBehaviour
         float searchRow = searchField.coordinates.y;
         return GetFieldByIndex((int)searchColumn, (int)(searchRow + 1));
     }
+    public Vector2 GetGridSize() {
+        return new Vector2(columnNumber, rowNumber);
+    }
 }

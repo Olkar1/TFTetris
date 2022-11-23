@@ -26,10 +26,9 @@ public class Field : MonoBehaviour
     [SerializeField] private MeshRenderer meshRenderer;
     [SerializeField] private Transform modelPosition;
     [SerializeField] private GameObject outline;
+    private Monster currentMosnter;
     
     private float meshSize;
-
-    public bool empty = true;
     public void CreateField(int column, int row, bool white) {
         meshFilter.mesh = white ? whiteFieldMesh : blackFieldMesh;
         coordinates = new Vector2(row, column);
@@ -55,4 +54,11 @@ public class Field : MonoBehaviour
             outline.gameObject.SetActive(active);
         }
     }
+    public void SetMonster(Monster monster) {
+        currentMosnter = monster;
+    }
+    public Monster GetMonster() {
+        return currentMosnter;
+    }
+    
 }

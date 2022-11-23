@@ -27,7 +27,7 @@ public class Timer : MonoBehaviour
         timeLeft = initialTime - timePassed;
         timerSlider.value = timePassed / initialTime;
         if (timeLeft <=0) {
-            GameManager.gameStatus = GameManager.GameStatus.fighting;
+            GameManager.gameStatus = GameManager.GameStatus.moveMonsters;
             ResetTimer();
         }
     }
