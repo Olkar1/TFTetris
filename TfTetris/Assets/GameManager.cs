@@ -16,21 +16,20 @@ public class GameManager : MonoBehaviour
     }
     void Start()
     {
-        Debug.Log(1 % 5);
         StartGame();
     }
 
     void Update()
     {
         if (gameStatus == GameStatus.moveMonsters) {
-            StartCoroutine(Rel());
+            StartCoroutine(ReleseMonsters());
             gameStatus = GameStatus.calculatingScore;
 
         }
     }
     /// Iteration start from upper right corner
     /// direction of iteration : Left,down
-    private void ReleseMonsters() {
+    private IEnumerator ReleseMonsters() {
         List<Field> fields = GridManager.instance.fields;
         Vector2 fieldSize = GridManager.instance.GetGridSize();/// x:column, y: row
 
@@ -38,29 +37,8 @@ public class GameManager : MonoBehaviour
         for (int field = 0; field < fields.Count; field++) {
             Field monsterField = fields[(fields.Count - 1 * checkingRowNumber) - (int)fieldSize.y * field];
             if (monsterField.GetMonster()) {
-                monsterField.GetMonster().move = true;
+                yield return StartCoroutine(monsterField.GetMonster().MoveMonster());
                 monsterField.SetMonster(null);
-            }
-            if (field == (int)(fieldSize.x - 1)) {
-                checkingRowNumber++;
-                field = -1;
-            }
-            if (checkingRowNumber > (int)fieldSize.y) {
-                break;
-            }
-        }
-    }
-    private IEnumerator Rel() {
-        List<Field> fields = GridManager.instance.fields;
-        Vector2 fieldSize = GridManager.instance.GetGridSize();/// x:column, y: row
-
-        int checkingRowNumber = 1;
-        for (int field = 0; field < fields.Count; field++) {
-            Field monsterField = fields[(fields.Count - 1 * checkingRowNumber) - (int)fieldSize.y * field];
-            if (monsterField.GetMonster()) {
-                monsterField.GetMonster().move = true;
-                monsterField.SetMonster(null);
-                yield return new WaitForSeconds(0.1f);
             }
             if (field == (int)(fieldSize.x - 1)) {
                 checkingRowNumber++;

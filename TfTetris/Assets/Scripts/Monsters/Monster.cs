@@ -7,8 +7,6 @@ public class Monster : MonoBehaviour
     public bool isHold = false;
     public Field positionField;
     public radiationField radiationField;
-    bool reachEnd = false;
-    public bool move = false;
 
     void Start()
     {
@@ -29,25 +27,19 @@ public class Monster : MonoBehaviour
                 isHold = false;
             }
         }
-        if (move) {
-            Field upfrontField = GridManager.instance.GetUpFrontField(positionField);
-            if (upfrontField && !upfrontField.GetMonster()) {
-                positionField.SetMonster(null);
-                positionField = upfrontField;
-                //positionField.SetMonster(this);
-                transform.position = positionField.middlePos;
-            }
-            else {
-                if (!reachEnd) {
-                    positionField.SetMonster(this);
-                    SpawnAttack();
-                    reachEnd = true;
-                    move = false;
-                }
-            }
-        }
     }
-
+    public IEnumerator MoveMonster() {
+        Field upfrontField = GridManager.instance.GetUpFrontField(positionField);
+        while (upfrontField && !upfrontField.GetMonster()) {
+            positionField.SetMonster(null);
+            positionField = upfrontField;
+            transform.position = positionField.middlePos;
+            upfrontField = GridManager.instance.GetUpFrontField(positionField);
+            yield return new WaitForSeconds(0.5f);
+        }
+        positionField.SetMonster(this);
+        SpawnAttack();
+    }
     private void SpawnAttack() {
         GameObject attackVisual = radiationField.visualization;
         foreach (Vector2 attackIndex in radiationField.affectedSqueres) {
