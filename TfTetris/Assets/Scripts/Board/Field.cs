@@ -44,7 +44,7 @@ public class Field : MonoBehaviour
         rightUpperCorner = transform.position + new Vector3((int)meshSize, 0, (int)meshSize);
         leftDownCorner = new Vector3((int)transform.position.x, 0, (int)transform.position.z);
         rightDownCorner = transform.position + new Vector3((int)meshSize, 0, 0);
-        middlePos = transform.position + new Vector3((int)meshSize/2,0, (int)meshSize/2);
+        middlePos = transform.position + new Vector3(meshSize/2,0, meshSize/2);
     }
     public void ActiveOutline(bool active) {
         if(active && !outline.gameObject.activeSelf) {
