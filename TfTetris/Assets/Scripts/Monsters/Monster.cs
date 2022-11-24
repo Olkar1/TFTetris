@@ -48,7 +48,8 @@ public class Monster : MonoBehaviour
                 (int)currentPositionIndex.y + (int)attackIndex.y);
             if (!spawnField) { continue; }
             Vector3 positionToSpawn = spawnField.middlePos;
-            
+
+            spawnField.scored = true;
             Instantiate(attackVisual, positionToSpawn,Quaternion.identity);
         }
     }

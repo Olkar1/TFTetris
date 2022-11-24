@@ -6,7 +6,6 @@ public class Field : MonoBehaviour
 {
 
     public Vector2 coordinates;
-    private Vector2 worldCoordinates;
     public int column;
     public int row;
     /// <summary>
@@ -27,6 +26,7 @@ public class Field : MonoBehaviour
     [SerializeField] private Transform modelPosition;
     [SerializeField] private GameObject outline;
     private Monster currentMosnter;
+    public bool scored = false;
     
     private float meshSize;
     public void CreateField(int column, int row, bool white) {
