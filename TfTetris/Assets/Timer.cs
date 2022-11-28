@@ -6,32 +6,25 @@ using UnityEngine.UI;
 public class Timer : MonoBehaviour
 {
     [SerializeField] private int initialTime;
-    [SerializeField] private float timePassed;
-    [SerializeField] private float timeLeft;
+    private float timePassed;
+    private float timeLeft;
     [SerializeField] private Slider timerSlider;
-    [SerializeField] private Shop shop;
-    void Start()
-    {
-        
-    }
     void Update()
     {
         UpdateTimerValue();
-
-
     }
     private void UpdateTimerValue() {
-        if (GameManager.gameStatus != GameManager.GameStatus.shoping) { return; }
+        if (GameManager.instance.GetGameStatus() != GameManager.GameStatus.shoping) { return; }
 
         timePassed += Time.deltaTime;
         timeLeft = initialTime - timePassed;
         timerSlider.value = timePassed / initialTime;
         if (timeLeft <=0) {
-            GameManager.gameStatus = GameManager.GameStatus.moveMonsters;
+            GameManager.instance.SetGameStatus(GameManager.GameStatus.moveMonsters);
             ResetTimer();
         }
     }
-    private void ResetTimer() {
+    public void ResetTimer() {
         timerSlider.value = 0;
         timePassed = 0;
     }

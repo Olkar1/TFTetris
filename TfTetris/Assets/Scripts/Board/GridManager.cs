@@ -5,34 +5,25 @@ using UnityEngine;
 
 public class GridManager : MonoBehaviour
 {
+    private const int FIELD_BORDER_OFFEST = 1;
     [SerializeField] private int columnNumber;
     [SerializeField] private int rowNumber;
+
     [SerializeField] private Field fieldPrefab;
     public List<Field> fields;
-
+    [HideInInspector]
     public Field currentActiveField;
-    private int fieldActivationOffset = 1;
 
-
-    [SerializeField]private bool createOnStart;
     public static GridManager instance;
-    public Vector2 temp;
     private void Awake() {
         instance = this;
         ClearFields();
     }
     void Start()
     {
-        if (createOnStart) {
-            SpawnGrid();
-        }
-
+        SpawnGrid();
     }
     private void Update() {
-        if (Input.GetKeyDown(KeyCode.U)) {
-            DisableFieldByIndex((int)temp.x, (int)temp.y);
-        }
-
         GetFieldByPointerPosition(Pointer.pointerPosition);
     }
     private void SpawnGrid() {
@@ -82,8 +73,8 @@ public class GridManager : MonoBehaviour
     }
     private Field GetFieldByPointerPosition(Vector3 pointerPosition) {
         foreach (Field field in fields) {
-            if (pointerPosition.x > field.leftDownCorner.x + fieldActivationOffset && pointerPosition.x < field.rightDownCorner.x - fieldActivationOffset &&
-                pointerPosition.z > field.leftDownCorner.z + +fieldActivationOffset && pointerPosition.z < field.leftUpperCorner.z - fieldActivationOffset) {
+            if (pointerPosition.x > field.leftDownCorner.x + FIELD_BORDER_OFFEST && pointerPosition.x < field.rightDownCorner.x - FIELD_BORDER_OFFEST &&
+                pointerPosition.z > field.leftDownCorner.z + +FIELD_BORDER_OFFEST && pointerPosition.z < field.leftUpperCorner.z - FIELD_BORDER_OFFEST) {
                 field.ActiveOutline(true);
                 return currentActiveField = field;
             }

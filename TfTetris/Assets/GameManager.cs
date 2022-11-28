@@ -1,19 +1,28 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField]private Timer timer;
+
+    private static GameStatus gameStatus;
+    public Transform monstersParent;
+    public static GameManager instance;
+    [SerializeField] private TextMeshProUGUI statusText;
+    [SerializeField] private TextMeshProUGUI scoreText;
+    private int lastGameScore = 0;
+
+    [SerializeField] private Timer timer;
     [SerializeField] private Shop shop;
-    public static GameStatus gameStatus;
     private void Awake() {
+        instance = this;
     }
     public enum GameStatus {
         shoping,
         moveMonsters,
         calculatingScore,
-        showScore,
+        prepereNextRound,
         wait
     }
     void Start()
@@ -26,20 +35,22 @@ public class GameManager : MonoBehaviour
         switch (gameStatus) {
             case GameStatus.moveMonsters:
                 StartCoroutine(ReleseMonsters());
-                gameStatus = GameStatus.wait;
+                SetGameStatus(GameStatus.wait);
                 break;
             case GameStatus.calculatingScore:
-                CalculateScore();
-                gameStatus = GameStatus.showScore;
+                StartCoroutine(CalculateScore());
+                SetGameStatus(GameStatus.wait);
                 break;
-            case GameStatus.showScore:
+            case GameStatus.prepereNextRound:
+                ClearMonsters();
+                shop.SpawnIcons();
+                timer.ResetTimer();
+                SetGameStatus(GameStatus.shoping);
+                break;
+            case GameStatus.shoping:
                 break;
             case GameStatus.wait:
                 break;
-        }
-        if (gameStatus == GameStatus.moveMonsters) {
-
-
         }
     }
     /// Iteration start from upper right corner
@@ -63,9 +74,23 @@ public class GameManager : MonoBehaviour
                 break;
             }
         }
-        gameStatus = GameStatus.calculatingScore;
+        SetGameStatus(GameStatus.calculatingScore);
+        yield return null;
     }
-    private void CalculateScore() {
+    public void SetGameStatus(GameStatus status) {
+        gameStatus = status;
+        statusText.text = status.ToString();
+    }
+    public GameStatus GetGameStatus() {
+        return gameStatus;
+    }
+    private void ClearMonsters() {
+        for (int monsterIndex = 0; monsterIndex< monstersParent.childCount; monsterIndex++) {
+            Destroy(monstersParent.GetChild(monsterIndex).gameObject);
+        }
+    }
+    private IEnumerator CalculateScore() {
+        lastGameScore = 0;
         List<Field> fields = GridManager.instance.fields;
         Vector2 fieldSize = GridManager.instance.GetGridSize();/// x:column, y: row
         int scoreInRow = 0;
@@ -90,10 +115,15 @@ public class GameManager : MonoBehaviour
                 break;
             }
         }
-        Debug.LogError(totalScore);
+        lastGameScore = totalScore;
+        scoreText.text = "Last score: " + lastGameScore;
+        int deleyBeetwenRounds = 3;
+
+        yield return new WaitForSeconds(deleyBeetwenRounds);
+        SetGameStatus(GameStatus.prepereNextRound);
     }
     private void StartGame() {
-        gameStatus = GameStatus.shoping;
+        SetGameStatus(GameStatus.shoping);
         shop.SpawnIcons();
     }
 }

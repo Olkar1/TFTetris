@@ -9,20 +9,23 @@ public class Shop : MonoBehaviour
     private float containerWidth;
 
     [SerializeField] private int numbersOfIcons;
+
     [SerializeField] private List<MonsterShopIcon> monsterIcons;
-    private bool locked = false;
+    private List<MonsterShopIcon> shopIcons = new List<MonsterShopIcon>();
+
+    [SerializeField] private Button rollButton;
     private void Awake() {
         containerWidth = monsterIconContainer.rect.width;
+        rollButton.onClick.AddListener(SetNewMonsters);
     }
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.D)) {
-            ClearShop();
-            SpawnIcons();
+            SetNewMonsters();
         }
     }
     public void SpawnIcons() {
-        if (GameManager.gameStatus != GameManager.GameStatus.shoping) {
+        if (GameManager.instance.GetGameStatus() != GameManager.GameStatus.shoping) {
             return;
         }
         float conteinerLeft = -containerWidth / 2;
@@ -32,6 +35,8 @@ public class Shop : MonoBehaviour
 
         for (int iconIndex =0; iconIndex < numbersOfIcons; iconIndex++) {
             var icon = Instantiate(GetRandomMonster()); ///SpawnRandomIcon
+            icon.transform.name = "icon: " + (iconIndex + 1);
+            shopIcons.Add(icon);
             RectTransform iconRect = icon.GetComponent<RectTransform>();
             if (!iconWidthSet) {
                 iconWidth = iconRect.rect.width;
@@ -45,7 +50,7 @@ public class Shop : MonoBehaviour
                 offset = (containerWidth - iconWidth * numbersOfIcons) /2;
             }
 
-            icon.transform.parent = monsterIconContainer.transform;
+            icon.transform.SetParent(monsterIconContainer.transform);
             iconRect.anchoredPosition = new Vector3(conteinerLeft + iconWidth / 2 + iconWidth * iconIndex + offset, 0,0) ;
         }
     }
@@ -53,13 +58,9 @@ public class Shop : MonoBehaviour
         int i = Random.Range(0, monsterIcons.Count);
         return monsterIcons[i];
     }
-    private void ClearShop() {
-        if (GameManager.gameStatus != GameManager.GameStatus.shoping) {
-            return;
-        }
-        int childCount = monsterIconContainer.childCount;
-        for (int i = 0; i<childCount; i++) {
-            Destroy(monsterIconContainer.transform.GetChild(i).gameObject);
+    private void SetNewMonsters() {
+        foreach (var icon in shopIcons) {
+            icon.SetNewMonster(GetRandomMonster());
         }
     }
 }

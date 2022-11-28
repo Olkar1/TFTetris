@@ -7,27 +7,34 @@ public class Monster : MonoBehaviour
     public bool isHold = false;
     public Field positionField;
     public radiationField radiationField;
+    public Transform attackParent;
 
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
     void Update()
     {
+        if (!isHold) { return; }
+        GlueToPointerAndSetCurrentPositionField();
+        PutMonsterOnField(positionField);
+    }
+    private void GlueToPointerAndSetCurrentPositionField() {
         if (isHold) {
             transform.position = Pointer.pointerPosition;
-            Field currentField = GridManager.instance.currentActiveField;
-            if (Input.GetMouseButton(0) && currentField && !currentField.GetMonster()) {
+            positionField = GridManager.instance.currentActiveField;
+        }
+    }
+    private void PutMonsterOnField(Field currentField) {
+        if (Input.GetMouseButton(0)) {
+            if (currentField && !currentField.GetMonster()) {
                 transform.position = currentField.middlePos;
                 currentField.SetMonster(this);
                 positionField = currentField;
-                Debug.LogError(positionField.name);
                 isHold = false;
+            }
+            else {
+                Debug.LogWarning("Wrong place");
             }
         }
     }
+
     public IEnumerator MoveMonster() {
         Field upfrontField = GridManager.instance.GetUpFrontField(positionField);
         while (upfrontField && !upfrontField.GetMonster()) {
@@ -50,7 +57,8 @@ public class Monster : MonoBehaviour
             Vector3 positionToSpawn = spawnField.middlePos;
 
             spawnField.scored = true;
-            Instantiate(attackVisual, positionToSpawn,Quaternion.identity);
+            var attack = Instantiate(attackVisual, positionToSpawn,Quaternion.identity);
+            attack.transform.SetParent(attackParent);
         }
     }
 }

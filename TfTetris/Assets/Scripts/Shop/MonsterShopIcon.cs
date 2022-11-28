@@ -13,10 +13,16 @@ public class MonsterShopIcon : MonoBehaviour
     private void Start() {
         button.onClick.AddListener(SpawnMonster);
     }
-
     private void SpawnMonster() {
-        if(GameManager.gameStatus != GameManager.GameStatus.shoping) { return; }
+        if(GameManager.instance.GetGameStatus() != GameManager.GameStatus.shoping) { return; }
         Monster newMonster = Instantiate(monster);
+        newMonster.transform.SetParent(GameManager.instance.monstersParent);
         newMonster.isHold = true;
+    }
+    public void SetNewMonster(MonsterShopIcon newMonster) {
+        iconImage.color = newMonster.iconImage.color;///TODO set correct image
+        cost = newMonster.cost;
+        button = newMonster.button;
+        monster = newMonster.monster;
     }
 }
