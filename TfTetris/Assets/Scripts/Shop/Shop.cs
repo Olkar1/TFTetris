@@ -25,7 +25,7 @@ public class Shop : MonoBehaviour
         }
     }
     public void SpawnIcons() {
-        if (GameManager.instance.GetGameStatus() != GameManager.GameStatus.shoping) {
+        if (GameManager.instance.GetGameStatus() != GameManager.GameStatus.Shoping) {
             return;
         }
         float conteinerLeft = -containerWidth / 2;

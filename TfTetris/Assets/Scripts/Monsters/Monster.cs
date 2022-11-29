@@ -23,7 +23,7 @@ public class Monster : MonoBehaviour
     }
     private void PutMonsterOnField(Field currentField) {
         if (Input.GetMouseButton(0)) {
-            if (currentField && !currentField.GetMonster()) {
+            if (currentField && currentField.IsEmpty()) {
                 transform.position = currentField.middlePos;
                 currentField.SetMonster(this);
                 positionField = currentField;
@@ -37,7 +37,7 @@ public class Monster : MonoBehaviour
 
     public IEnumerator MoveMonster() {
         Field upfrontField = GridManager.instance.GetUpFrontField(positionField);
-        while (upfrontField && !upfrontField.GetMonster()) {
+        while (upfrontField && upfrontField.IsEmpty()) {
             positionField.SetMonster(null);
             positionField = upfrontField;
             transform.position = positionField.middlePos;
@@ -57,6 +57,9 @@ public class Monster : MonoBehaviour
             Vector3 positionToSpawn = spawnField.middlePos;
 
             spawnField.scored = true;
+            if (spawnField.GetSpecialObject()) {
+                Destroy(spawnField.GetSpecialObject().gameObject);
+            }
             var attack = Instantiate(attackVisual, positionToSpawn,Quaternion.identity);
             attack.transform.SetParent(attackParent);
         }

@@ -8,22 +8,30 @@ public class GameManager : MonoBehaviour
 
     private static GameStatus gameStatus;
     public Transform monstersParent;
+    public Transform specialObjectParent;
     public static GameManager instance;
-    [SerializeField] private TextMeshProUGUI statusText;
-    [SerializeField] private TextMeshProUGUI scoreText;
     private int lastGameScore = 0;
 
     [SerializeField] private Timer timer;
     [SerializeField] private Shop shop;
+
+    /// <summary>
+    /// TEMP
+    /// </summary>
+    [SerializeField] private TextMeshProUGUI statusText;
+    [SerializeField] private TextMeshProUGUI dmgText;
+    [SerializeField] private TextMeshProUGUI corutineActive;
+    [SerializeField] private TextMeshProUGUI battleLog;
+    public List<BoardScenerio> boardScenerios;
     private void Awake() {
         instance = this;
     }
     public enum GameStatus {
-        shoping,
-        moveMonsters,
-        calculatingScore,
-        prepereNextRound,
-        wait
+        Shoping,
+        MoveMonsters,
+        CalculatingScore,
+        PrepereNextRound,
+        Wait
     }
     void Start()
     {
@@ -33,23 +41,27 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         switch (gameStatus) {
-            case GameStatus.moveMonsters:
+            case GameStatus.MoveMonsters:
                 StartCoroutine(ReleseMonsters());
-                SetGameStatus(GameStatus.wait);
+                SetGameStatus(GameStatus.Wait);
                 break;
-            case GameStatus.calculatingScore:
-                StartCoroutine(CalculateScore());
-                SetGameStatus(GameStatus.wait);
+            case GameStatus.CalculatingScore:
+                StartCoroutine(CalculateScoreAndLounchSpecialObject());
+                SetGameStatus(GameStatus.Wait);
                 break;
-            case GameStatus.prepereNextRound:
+            case GameStatus.PrepereNextRound:
+                battleLog.text = "";
                 ClearMonsters();
+                ClearSpecialObjects();
                 shop.SpawnIcons();
                 timer.ResetTimer();
-                SetGameStatus(GameStatus.shoping);
+                GridManager.instance.CleardFields();
+                SetGameStatus(GameStatus.Shoping);
+                SetBoardScenerio(GetRandomScenerio());
                 break;
-            case GameStatus.shoping:
+            case GameStatus.Shoping:
                 break;
-            case GameStatus.wait:
+            case GameStatus.Wait:
                 break;
         }
     }
@@ -74,12 +86,18 @@ public class GameManager : MonoBehaviour
                 break;
             }
         }
-        SetGameStatus(GameStatus.calculatingScore);
-        yield return null;
+        yield return new WaitForSeconds(1f);//DELEY WHEN NO MONSTERS
+        SetGameStatus(GameStatus.CalculatingScore);
     }
     public void SetGameStatus(GameStatus status) {
         gameStatus = status;
-        statusText.text = status.ToString();
+        if (status == GameStatus.Wait) {
+            corutineActive.text = "Corutine active";
+        }
+        else {
+            corutineActive.text = "";
+            statusText.text = status.ToString();
+        }
     }
     public GameStatus GetGameStatus() {
         return gameStatus;
@@ -89,7 +107,12 @@ public class GameManager : MonoBehaviour
             Destroy(monstersParent.GetChild(monsterIndex).gameObject);
         }
     }
-    private IEnumerator CalculateScore() {
+    private void ClearSpecialObjects() {
+        for (int specialObjIndex = 0; specialObjIndex < specialObjectParent.childCount; specialObjIndex++) {
+            Destroy(specialObjectParent.GetChild(specialObjIndex).gameObject);
+        }
+    }
+    private IEnumerator CalculateScoreAndLounchSpecialObject() {
         lastGameScore = 0;
         List<Field> fields = GridManager.instance.fields;
         Vector2 fieldSize = GridManager.instance.GetGridSize();/// x:column, y: row
@@ -97,13 +120,15 @@ public class GameManager : MonoBehaviour
         int totalScore = 0;
         int checkingRowNumber = 1;
         for (int field = 0; field < fields.Count; field++) {
-            Field monsterField = fields[(fields.Count - 1 * checkingRowNumber) - (int)fieldSize.y * field];
-            if (monsterField.scored) {
+            Field checkingField = fields[(fields.Count - 1 * checkingRowNumber) - (int)fieldSize.y * field];
+            if (checkingField.GetSpecialObject()) {
+                battleLog.text += checkingField.GetSpecialObject().effect + "\n";
+            }
+            if (checkingField.scored) {
                 scoreInRow++;
             }
             if (field == (int)(fieldSize.x - 1)) {
                 if(scoreInRow == fieldSize.x) {
-                    Debug.LogError("Double points");
                     scoreInRow = scoreInRow * 2;
                 }
                 checkingRowNumber++;
@@ -116,14 +141,30 @@ public class GameManager : MonoBehaviour
             }
         }
         lastGameScore = totalScore;
-        scoreText.text = "Last score: " + lastGameScore;
+        dmgText.text = "Dmg done: " + lastGameScore;
         int deleyBeetwenRounds = 3;
 
         yield return new WaitForSeconds(deleyBeetwenRounds);
-        SetGameStatus(GameStatus.prepereNextRound);
+        SetGameStatus(GameStatus.PrepereNextRound);
     }
     private void StartGame() {
-        SetGameStatus(GameStatus.shoping);
+
+        SetGameStatus(GameStatus.Shoping);
+        SetBoardScenerio(GetRandomScenerio());
         shop.SpawnIcons();
+    }
+    private void SetBoardScenerio(BoardScenerio scenerio) {
+        foreach (var special in scenerio.scenerioObjects) {
+            for (int i = 0; i< special.positions.Count;i++) {
+                SpecialObject specialObject = Instantiate(special.objectToSpawn);
+                specialObject.transform.SetParent(specialObjectParent);
+                GridManager.instance.GetFieldByIndex((int)special.positions[i].x, (int)special.positions[i].y).SetSpecialObject(specialObject);
+            }
+        }
+    }
+    private BoardScenerio GetRandomScenerio() {
+        int numberOfScenerios = boardScenerios.Count;
+        int randomScenerioIndex = Random.Range(0, numberOfScenerios);
+        return boardScenerios[randomScenerioIndex];
     }
 }

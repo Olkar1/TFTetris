@@ -25,7 +25,8 @@ public class Field : MonoBehaviour
     [SerializeField] private MeshRenderer meshRenderer;
     [SerializeField] private Transform modelPosition;
     [SerializeField] private GameObject outline;
-    private Monster currentMosnter;
+    [SerializeField] private Monster currentMosnter;
+    [SerializeField] private SpecialObject specialObject;
     public bool scored = false;
     
     private float meshSize;
@@ -57,8 +58,23 @@ public class Field : MonoBehaviour
     public void SetMonster(Monster monster) {
         currentMosnter = monster;
     }
+    public void SetSpecialObject(SpecialObject specialObject) {
+        if(!IsEmpty()) {
+            Destroy(specialObject.gameObject);
+            return;
+        }
+        specialObject.transform.position = middlePos;
+        specialObject.position = new Vector2(column, row);
+        this.specialObject = specialObject;
+    }
+    public SpecialObject GetSpecialObject() {
+        return specialObject;
+    }
     public Monster GetMonster() {
         return currentMosnter;
     }
-    
+    public bool IsEmpty() {
+        bool empty = (currentMosnter == null && specialObject == null);
+        return empty;
+    }
 }

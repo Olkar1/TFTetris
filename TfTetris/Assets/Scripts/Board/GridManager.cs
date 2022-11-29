@@ -92,4 +92,10 @@ public class GridManager : MonoBehaviour
     public Vector2 GetGridSize() {
         return new Vector2(columnNumber, rowNumber);
     }
+    public void CleardFields() {
+        foreach(Field field in fields) {
+            field.scored = false;
+            field.SetMonster(null);
+        }
+    }
 }

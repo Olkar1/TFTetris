@@ -14,7 +14,7 @@ public class MonsterShopIcon : MonoBehaviour
         button.onClick.AddListener(SpawnMonster);
     }
     private void SpawnMonster() {
-        if(GameManager.instance.GetGameStatus() != GameManager.GameStatus.shoping) { return; }
+        if(GameManager.instance.GetGameStatus() != GameManager.GameStatus.Shoping) { return; }
         Monster newMonster = Instantiate(monster);
         newMonster.transform.SetParent(GameManager.instance.monstersParent);
         newMonster.isHold = true;

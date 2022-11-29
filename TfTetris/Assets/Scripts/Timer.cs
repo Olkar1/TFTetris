@@ -14,13 +14,13 @@ public class Timer : MonoBehaviour
         UpdateTimerValue();
     }
     private void UpdateTimerValue() {
-        if (GameManager.instance.GetGameStatus() != GameManager.GameStatus.shoping) { return; }
+        if (GameManager.instance.GetGameStatus() != GameManager.GameStatus.Shoping) { return; }
 
         timePassed += Time.deltaTime;
         timeLeft = initialTime - timePassed;
         timerSlider.value = timePassed / initialTime;
         if (timeLeft <=0) {
-            GameManager.instance.SetGameStatus(GameManager.GameStatus.moveMonsters);
+            GameManager.instance.SetGameStatus(GameManager.GameStatus.MoveMonsters);
             ResetTimer();
         }
     }
