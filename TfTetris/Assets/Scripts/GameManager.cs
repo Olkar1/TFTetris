@@ -22,7 +22,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI dmgText;
     [SerializeField] private TextMeshProUGUI corutineActive;
     [SerializeField] private TextMeshProUGUI battleLog;
+    [SerializeField] private TextMeshProUGUI goldText;
     public List<BoardScenerio> boardScenerios;
+    public int gold = 10;
     private void Awake() {
         instance = this;
     }
@@ -57,6 +59,7 @@ public class GameManager : MonoBehaviour
 
                 shop.SetNewMonsters(true);
                 timer.ResetTimer();
+                SetGold(15);
 
                 SetGameStatus(GameStatus.Shoping);
                 SetBoardScenerio(GetRandomScenerio());
@@ -155,6 +158,7 @@ public class GameManager : MonoBehaviour
         SetBoardScenerio(GetRandomScenerio());
         shop.SpawnIcons();
         shop.SetNewMonsters(true);
+        SetGold(15);
     }
     private void SetBoardScenerio(BoardScenerio scenerio) {
         foreach (var special in scenerio.scenerioObjects) {
@@ -164,6 +168,14 @@ public class GameManager : MonoBehaviour
                 GridManager.instance.GetFieldByIndex((int)special.positions[i].x, (int)special.positions[i].y).SetSpecialObject(specialObject);
             }
         }
+    }
+    public void SubstractGold(int value) {
+        gold -= value;
+        goldText.text = "Gold: " + gold;
+    }
+    public void SetGold(int value) {
+        gold = value;
+        goldText.text = "Gold: " + gold;
     }
     private BoardScenerio GetRandomScenerio() {
         int numberOfScenerios = boardScenerios.Count;

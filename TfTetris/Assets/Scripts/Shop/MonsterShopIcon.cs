@@ -13,11 +13,13 @@ public class MonsterShopIcon : MonoBehaviour
     [SerializeField] private TextMeshProUGUI costText;
 
     public bool bought = false;
-
+    Color iconColor = new Color();
     private void Awake() {
         button.onClick.AddListener(SpawnMonster);
+        iconColor = iconImage.color;
     }
     private void SpawnMonster() {
+        if(GameManager.instance.gold < cost) { return; }
         if(GameManager.instance.GetGameStatus() != GameManager.GameStatus.Shoping) { return; }
         if (bought) { return; }
         if (Pointer.hold) { return; }
@@ -26,6 +28,8 @@ public class MonsterShopIcon : MonoBehaviour
         newMonster.isHold = true;
         Pointer.hold = true;
         bought = true;
+        iconImage.color = new Color(iconColor.r, iconColor.g, iconColor.b, 0.1f);
+        GameManager.instance.SubstractGold(cost);
     }
     public void SetNewMonster(MonsterShopIcon newMonster) {
         iconImage.color = newMonster.iconImage.color;///TODO set correct image
@@ -33,5 +37,9 @@ public class MonsterShopIcon : MonoBehaviour
         costText.text = cost + " gold";
         button = newMonster.button;
         monster = newMonster.monster;
+        iconColor = newMonster.iconImage.color;
+    }
+    public void ResetIconAlpha() {
+        iconImage.color = new Color(iconColor.r, iconColor.g, iconColor.b, 1f);
     }
 }
