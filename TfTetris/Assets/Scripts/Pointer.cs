@@ -6,6 +6,7 @@ public class Pointer : MonoBehaviour
 {
     public static Vector3 pointerPosition;
     [SerializeField] private LayerMask pointerLayer;
+    public static bool hold = false;
 
     void Update()
     {

@@ -2235,6 +2235,31 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.x
       value: -4.9999847
       objectReference: {fileID: 0}
+    - target: {fileID: 5606141846569198207, guid: 8db86d0582a96854cbe552aad2479fd9,
+        type: 3}
+      propertyPath: m_text
+      value: Roll (2 gold)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5606141846569198207, guid: 8db86d0582a96854cbe552aad2479fd9,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 5606141846569198207, guid: 8db86d0582a96854cbe552aad2479fd9,
+        type: 3}
+      propertyPath: m_fontSizeMax
+      value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 5606141846569198207, guid: 8db86d0582a96854cbe552aad2479fd9,
+        type: 3}
+      propertyPath: m_fontSizeMin
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 5606141846569198207, guid: 8db86d0582a96854cbe552aad2479fd9,
+        type: 3}
+      propertyPath: m_enableAutoSizing
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5606141848210857154, guid: 8db86d0582a96854cbe552aad2479fd9,
         type: 3}
       propertyPath: m_Name

@@ -53,9 +53,11 @@ public class GameManager : MonoBehaviour
                 battleLog.text = "";
                 ClearMonsters();
                 ClearSpecialObjects();
-                shop.SpawnIcons();
-                timer.ResetTimer();
                 GridManager.instance.CleardFields();
+
+                shop.SetNewMonsters(true);
+                timer.ResetTimer();
+
                 SetGameStatus(GameStatus.Shoping);
                 SetBoardScenerio(GetRandomScenerio());
                 break;
@@ -152,6 +154,7 @@ public class GameManager : MonoBehaviour
         SetGameStatus(GameStatus.Shoping);
         SetBoardScenerio(GetRandomScenerio());
         shop.SpawnIcons();
+        shop.SetNewMonsters(true);
     }
     private void SetBoardScenerio(BoardScenerio scenerio) {
         foreach (var special in scenerio.scenerioObjects) {

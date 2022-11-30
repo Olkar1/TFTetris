@@ -58,9 +58,17 @@ public class Shop : MonoBehaviour
         int i = Random.Range(0, monsterIcons.Count);
         return monsterIcons[i];
     }
-    private void SetNewMonsters() {
+    public void SetNewMonsters() {
+        if (GameManager.instance.GetGameStatus() != GameManager.GameStatus.Shoping) { return; }
         foreach (var icon in shopIcons) {
             icon.SetNewMonster(GetRandomMonster());
+            icon.bought = false;
+        }
+    }
+    public void SetNewMonsters(bool forced) {
+        foreach (var icon in shopIcons) {
+            icon.SetNewMonster(GetRandomMonster());
+            icon.bought = false;
         }
     }
 }

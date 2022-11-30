@@ -62,10 +62,20 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5819385395490126909, guid: 007b32867b23d704d931270a430fa6d3,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8731865857287890115, guid: 007b32867b23d704d931270a430fa6d3,
         type: 3}
       propertyPath: m_Name
       value: Naga
+      objectReference: {fileID: 0}
+    - target: {fileID: 9176727281805745219, guid: 007b32867b23d704d931270a430fa6d3,
+        type: 3}
+      propertyPath: monsterCost
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 9176727281805745219, guid: 007b32867b23d704d931270a430fa6d3,
         type: 3}

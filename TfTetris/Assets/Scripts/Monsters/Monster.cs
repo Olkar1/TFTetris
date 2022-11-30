@@ -28,6 +28,7 @@ public class Monster : MonoBehaviour
                 currentField.SetMonster(this);
                 positionField = currentField;
                 isHold = false;
+                Pointer.hold = false;
             }
             else {
                 Debug.LogWarning("Wrong place");
