@@ -2744,6 +2744,11 @@ PrefabInstance:
       objectReference: {fileID: 1482893875}
     - target: {fileID: 6959868740583185173, guid: 3675c8a7756332646875899bccb02a7d,
         type: 3}
+      propertyPath: goldText
+      value: 
+      objectReference: {fileID: 1307029300}
+    - target: {fileID: 6959868740583185173, guid: 3675c8a7756332646875899bccb02a7d,
+        type: 3}
       propertyPath: battleLog
       value: 
       objectReference: {fileID: 1728493998}
