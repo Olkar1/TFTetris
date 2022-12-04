@@ -23,7 +23,7 @@ public class Field : MonoBehaviour
 
     [SerializeField] private MeshFilter meshFilter;
     [SerializeField] private MeshRenderer meshRenderer;
-    [SerializeField] private Transform modelPosition;
+    [SerializeField] private Transform modelTransform;
     [SerializeField] private GameObject outline;
     [SerializeField] private Monster currentMosnter;
     [SerializeField] private SpecialObject specialObject;
@@ -38,13 +38,13 @@ public class Field : MonoBehaviour
     }
     private void MoveMeshToStartCorner() {
         meshSize = meshRenderer.bounds.size.x;
-        modelPosition.localPosition = new Vector3(meshSize,0,0);
+        modelTransform.localPosition = new Vector3(meshSize,0,0);
     }
     private void SetCornersPosition() {
-        leftUpperCorner = transform.position + new Vector3(0, 0, (int)meshSize);
-        rightUpperCorner = transform.position + new Vector3((int)meshSize, 0, (int)meshSize);
-        leftDownCorner = new Vector3((int)transform.position.x, 0, (int)transform.position.z);
-        rightDownCorner = transform.position + new Vector3((int)meshSize, 0, 0);
+        leftUpperCorner = transform.position + new Vector3(0, 0, meshSize);
+        rightUpperCorner = transform.position + new Vector3(meshSize, 0, meshSize);
+        leftDownCorner = new Vector3(transform.position.x, 0,transform.position.z);
+        rightDownCorner = transform.position + new Vector3(meshSize, 0, 0);
         middlePos = transform.position + new Vector3(meshSize/2,0, meshSize/2);
     }
     public void ActiveOutline(bool active) {
@@ -66,6 +66,11 @@ public class Field : MonoBehaviour
         specialObject.transform.position = middlePos;
         specialObject.position = new Vector2(column, row);
         this.specialObject = specialObject;
+    }
+    public float GetModelSize()
+    {
+        float size = meshFilter.sharedMesh.bounds.size.x;
+        return size;
     }
     public SpecialObject GetSpecialObject() {
         return specialObject;

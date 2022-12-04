@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class GridManager : MonoBehaviour
 {
-    private const int FIELD_BORDER_OFFEST = 1;
     [SerializeField] private int columnNumber;
     [SerializeField] private int rowNumber;
 
@@ -13,6 +12,7 @@ public class GridManager : MonoBehaviour
     public List<Field> fields;
     [HideInInspector]
     public Field currentActiveField;
+    public float fieldsOffset ;
 
     public static GridManager instance;
     private void Awake() {
@@ -39,15 +39,21 @@ public class GridManager : MonoBehaviour
         }
     }
     private void SpawnPosition(int row, int column, bool white) {
-        int cubeOffset = 20;
-        Vector3 spawnPosition = new Vector3(row * cubeOffset, 0, column * cubeOffset);
+        float fieldWidth = fieldPrefab.GetModelSize();
+
+        float fieldXPosition = row * fieldWidth + fieldsOffset + transform.position.x;
+        float fieldYPosition = column * fieldWidth + fieldsOffset + transform.position.z;
+        Vector3 spawnPosition = new Vector3(fieldXPosition, transform.position.y, fieldYPosition);
+
         var field = Instantiate(fieldPrefab, spawnPosition, Quaternion.identity);
+
         if (white) {
             field.CreateField(column,row,true);
         }
         else {
             field.CreateField(column, row, false);
         }
+
         field.transform.name = "(" + row.ToString() + "," + column.ToString() + ")";
         field.transform.SetParent(this.transform);
         fields.Add(field);
@@ -73,8 +79,8 @@ public class GridManager : MonoBehaviour
     }
     private Field GetFieldByPointerPosition(Vector3 pointerPosition) {
         foreach (Field field in fields) {
-            if (pointerPosition.x > field.leftDownCorner.x + FIELD_BORDER_OFFEST && pointerPosition.x < field.rightDownCorner.x - FIELD_BORDER_OFFEST &&
-                pointerPosition.z > field.leftDownCorner.z + +FIELD_BORDER_OFFEST && pointerPosition.z < field.leftUpperCorner.z - FIELD_BORDER_OFFEST) {
+            if (pointerPosition.x > field.leftDownCorner.x + fieldsOffset && pointerPosition.x < field.rightDownCorner.x - fieldsOffset &&
+                pointerPosition.z > field.leftDownCorner.z + +fieldsOffset && pointerPosition.z < field.leftUpperCorner.z - fieldsOffset) {
                 field.ActiveOutline(true);
                 return currentActiveField = field;
             }
