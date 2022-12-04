@@ -4,10 +4,6 @@ using UnityEngine;
 
 public class Field : MonoBehaviour
 {
-
-    public Vector2 coordinates;
-    public int column;
-    public int row;
     /// <summary>
     /// ORIGIN TRANSFORM IS IN THE LEFT DOWN CORNER
     /// AXIS swaped in inspector wtf why! TODO
@@ -17,19 +13,24 @@ public class Field : MonoBehaviour
     public Vector3 rightUpperCorner;
     public Vector3 rightDownCorner;
     public Vector3 middlePos;
+    public Vector2 coordinates;
 
-    [SerializeField] private Mesh blackFieldMesh;
-    [SerializeField] private Mesh whiteFieldMesh;
+    public int column;
+    public int row;
 
-    [SerializeField] private MeshFilter meshFilter;
-    [SerializeField] private MeshRenderer meshRenderer;
-    [SerializeField] private Transform modelTransform;
-    [SerializeField] private GameObject outline;
+    private float meshSize;
+
     [SerializeField] private Monster currentMosnter;
     [SerializeField] private SpecialObject specialObject;
     public bool scored = false;
     
-    private float meshSize;
+    [SerializeField] private GameObject outline;
+    [SerializeField] private MeshFilter meshFilter;
+    [SerializeField] private MeshRenderer meshRenderer;
+    [SerializeField] private Transform modelTransform;
+    [SerializeField] private Mesh blackFieldMesh;
+    [SerializeField] private Mesh whiteFieldMesh;
+
     public void CreateField(int column, int row, bool white) {
         meshFilter.mesh = white ? whiteFieldMesh : blackFieldMesh;
         coordinates = new Vector2(row, column);
@@ -47,7 +48,7 @@ public class Field : MonoBehaviour
         rightDownCorner = transform.position + new Vector3(meshSize, 0, 0);
         middlePos = transform.position + new Vector3(meshSize/2,0, meshSize/2);
     }
-    public void ActiveOutline(bool active) {
+    public void ActiveOutline(bool active) {///CAN BE BETTER
         if(active && !outline.gameObject.activeSelf) {
             outline.gameObject.SetActive(active);
         }

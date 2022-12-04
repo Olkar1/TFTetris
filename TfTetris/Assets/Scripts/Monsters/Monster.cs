@@ -18,7 +18,7 @@ public class Monster : MonoBehaviour
     private void GlueToPointerAndSetCurrentPositionField() {
         if (isHold) {
             transform.position = Pointer.pointerPosition;
-            positionField = GridManager.instance.currentActiveField;
+            positionField = GridManager.instance.GetCurrentActiveField();
         }
     }
     private void PutMonsterOnField(Field currentField) {
