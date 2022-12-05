@@ -498,6 +498,24 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 6824817589894611198}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &702655780 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 872469106267817914, guid: 3675c8a7756332646875899bccb02a7d,
+    type: 3}
+  m_PrefabInstance: {fileID: 6959868741316854331}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &702655782
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 702655780}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1dfc05b6bd0f6834895c6e871beed7c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &786724580 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 786724580, guid: 8db86d0582a96854cbe552aad2479fd9,
@@ -3315,6 +3333,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 872469106267817914, guid: 3675c8a7756332646875899bccb02a7d,
+        type: 3}
+      propertyPath: m_Name
+      value: Player
+      objectReference: {fileID: 0}
     - target: {fileID: 6959868740583185172, guid: 3675c8a7756332646875899bccb02a7d,
         type: 3}
       propertyPath: m_RootOrder
@@ -3382,6 +3405,11 @@ PrefabInstance:
       objectReference: {fileID: 786724580}
     - target: {fileID: 6959868740583185173, guid: 3675c8a7756332646875899bccb02a7d,
         type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 702655782}
+    - target: {fileID: 6959868740583185173, guid: 3675c8a7756332646875899bccb02a7d,
+        type: 3}
       propertyPath: dmgText
       value: 
       objectReference: {fileID: 1482893875}
@@ -3407,57 +3435,9 @@ PrefabInstance:
       objectReference: {fileID: 1393929327}
     - target: {fileID: 6959868740583185173, guid: 3675c8a7756332646875899bccb02a7d,
         type: 3}
-      propertyPath: boardScenerios.Array.size
-      value: 8
+      propertyPath: playerInitialGold
+      value: 15
       objectReference: {fileID: 0}
-    - target: {fileID: 6959868740583185173, guid: 3675c8a7756332646875899bccb02a7d,
-        type: 3}
-      propertyPath: boardScenerios.Array.data[0]
-      value: 
-      objectReference: {fileID: 11400000, guid: 64675f08b9de3d54ba01a10cd1879e33,
-        type: 2}
-    - target: {fileID: 6959868740583185173, guid: 3675c8a7756332646875899bccb02a7d,
-        type: 3}
-      propertyPath: boardScenerios.Array.data[1]
-      value: 
-      objectReference: {fileID: 11400000, guid: ad519dddc2e943e458d6388ee500d4d0,
-        type: 2}
-    - target: {fileID: 6959868740583185173, guid: 3675c8a7756332646875899bccb02a7d,
-        type: 3}
-      propertyPath: boardScenerios.Array.data[2]
-      value: 
-      objectReference: {fileID: 11400000, guid: 34ab05ec27463eb49b2cb3af78809ee2,
-        type: 2}
-    - target: {fileID: 6959868740583185173, guid: 3675c8a7756332646875899bccb02a7d,
-        type: 3}
-      propertyPath: boardScenerios.Array.data[3]
-      value: 
-      objectReference: {fileID: 11400000, guid: a2689b7ea06040740b640ce239a7b361,
-        type: 2}
-    - target: {fileID: 6959868740583185173, guid: 3675c8a7756332646875899bccb02a7d,
-        type: 3}
-      propertyPath: boardScenerios.Array.data[4]
-      value: 
-      objectReference: {fileID: 11400000, guid: cff5e163ff9463c458401696b89c8b51,
-        type: 2}
-    - target: {fileID: 6959868740583185173, guid: 3675c8a7756332646875899bccb02a7d,
-        type: 3}
-      propertyPath: boardScenerios.Array.data[5]
-      value: 
-      objectReference: {fileID: 11400000, guid: 1b75ac43c51aa52488b9b8d11ddc32b5,
-        type: 2}
-    - target: {fileID: 6959868740583185173, guid: 3675c8a7756332646875899bccb02a7d,
-        type: 3}
-      propertyPath: boardScenerios.Array.data[6]
-      value: 
-      objectReference: {fileID: 11400000, guid: 54253bc4ae301864dba877152ac1b7b1,
-        type: 2}
-    - target: {fileID: 6959868740583185173, guid: 3675c8a7756332646875899bccb02a7d,
-        type: 3}
-      propertyPath: boardScenerios.Array.data[7]
-      value: 
-      objectReference: {fileID: 11400000, guid: ffa3d5b601412a8489d7e8ec513e373f,
-        type: 2}
     - target: {fileID: 6959868740583185174, guid: 3675c8a7756332646875899bccb02a7d,
         type: 3}
       propertyPath: m_Name

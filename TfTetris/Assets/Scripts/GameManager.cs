@@ -7,14 +7,11 @@ public class GameManager : MonoBehaviour
 {
 
     private static GameStatus gameStatus;
-    public Transform monstersParent;
-    public Transform specialObjectParent;
-    public static GameManager instance;
+
     private int lastGameScore = 0;
+    public int playerInitialGold;
 
-    [SerializeField] private Timer timer;
-    [SerializeField] private Shop shop;
-
+    public List<BoardScenerio> boardScenerios;
     /// <summary>
     /// TEMP
     /// </summary>
@@ -23,8 +20,18 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI corutineActive;
     [SerializeField] private TextMeshProUGUI battleLog;
     [SerializeField] private TextMeshProUGUI goldText;
-    public List<BoardScenerio> boardScenerios;
-    public int gold = 10;
+    /// <summary>
+    /// 
+    /// </summary>
+    public Transform monstersParent;
+    public Transform specialObjectParent;
+
+    [SerializeField] private Player player;
+    [SerializeField] private Timer timer;
+    [SerializeField] private Shop shop;
+
+    public static GameManager instance;
+
     private void Awake() {
         instance = this;
     }
@@ -59,7 +66,7 @@ public class GameManager : MonoBehaviour
 
                 shop.SetNewMonsters(true);
                 timer.ResetTimer();
-                SetGold(15);
+                Player.SetGold(playerInitialGold);
 
                 SetGameStatus(GameStatus.Shoping);
                 SetBoardScenerio(GetRandomScenerio());
@@ -126,8 +133,9 @@ public class GameManager : MonoBehaviour
         int checkingRowNumber = 1;
         for (int field = 0; field < fields.Count; field++) {
             Field checkingField = fields[(fields.Count - 1 * checkingRowNumber) - (int)fieldSize.y * field];
-            if (checkingField.GetSpecialObject()) {
-                battleLog.text += checkingField.GetSpecialObject().effect + "\n";
+            SpecialObject specialObject = checkingField.GetSpecialObject();
+            if (specialObject) {
+                specialObject.specialEffect();
             }
             if (checkingField.scored) {
                 scoreInRow++;
@@ -158,7 +166,6 @@ public class GameManager : MonoBehaviour
         SetBoardScenerio(GetRandomScenerio());
         shop.SpawnIcons();
         shop.SetNewMonsters(true);
-        SetGold(15);
     }
     private void SetBoardScenerio(BoardScenerio scenerio) {
         foreach (var special in scenerio.scenerioObjects) {
@@ -170,12 +177,8 @@ public class GameManager : MonoBehaviour
         }
     }
     public void SubstractGold(int value) {
-        gold -= value;
-        goldText.text = "Gold: " + gold;
-    }
-    public void SetGold(int value) {
-        gold = value;
-        goldText.text = "Gold: " + gold;
+        Player.SubstractGold(value);
+        goldText.text = "Gold: " + Player.GetPlayerGold();
     }
     private BoardScenerio GetRandomScenerio() {
         int numberOfScenerios = boardScenerios.Count;

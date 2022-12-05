@@ -59,8 +59,9 @@ public class Shop : MonoBehaviour
         return monsterIcons[i];
     }
     public void SetNewMonsters() {
-        if(GameManager.instance.gold < 2) { return; }
-        if (GameManager.instance.GetGameStatus() != GameManager.GameStatus.Shoping) { return; }
+        if (GameManager.instance.GetGameStatus() != GameManager.GameStatus.Shoping || 
+            Player.GetPlayerGold() < 2) { return; }
+
         foreach (var icon in shopIcons) {
             icon.SetNewMonster(GetRandomMonster());
             icon.bought = false;

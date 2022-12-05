@@ -19,10 +19,11 @@ public class MonsterShopIcon : MonoBehaviour
         iconColor = iconImage.color;
     }
     private void SpawnMonster() {
-        if(GameManager.instance.gold < cost) { return; }
-        if(GameManager.instance.GetGameStatus() != GameManager.GameStatus.Shoping) { return; }
-        if (bought) { return; }
-        if (Pointer.hold) { return; }
+        if (GameManager.instance.GetGameStatus() != GameManager.GameStatus.Shoping || 
+            bought || 
+            Pointer.hold || 
+            Player.GetPlayerGold() < cost) { return; }
+
         Monster newMonster = Instantiate(monster);
         newMonster.transform.SetParent(GameManager.instance.monstersParent);
         newMonster.isHold = true;
