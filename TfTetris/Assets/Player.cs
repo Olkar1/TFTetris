@@ -23,7 +23,6 @@ public class Player : MonoBehaviour{
         Debug.LogError("You are dead");
     }
     public static int GetPlayerGold() {
-        Debug.LogError(gold);
         return gold;
     }
     public static void SubstractGold(int value) {

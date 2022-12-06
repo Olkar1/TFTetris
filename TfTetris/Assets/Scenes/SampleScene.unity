@@ -498,24 +498,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 6824817589894611198}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &702655780 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 872469106267817914, guid: 3675c8a7756332646875899bccb02a7d,
-    type: 3}
-  m_PrefabInstance: {fileID: 6959868741316854331}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &702655782
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 702655780}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1dfc05b6bd0f6834895c6e871beed7c3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &786724580 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 786724580, guid: 8db86d0582a96854cbe552aad2479fd9,
@@ -3333,11 +3315,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 872469106267817914, guid: 3675c8a7756332646875899bccb02a7d,
-        type: 3}
-      propertyPath: m_Name
-      value: Player
-      objectReference: {fileID: 0}
     - target: {fileID: 6959868740583185172, guid: 3675c8a7756332646875899bccb02a7d,
         type: 3}
       propertyPath: m_RootOrder
@@ -3405,11 +3382,6 @@ PrefabInstance:
       objectReference: {fileID: 786724580}
     - target: {fileID: 6959868740583185173, guid: 3675c8a7756332646875899bccb02a7d,
         type: 3}
-      propertyPath: player
-      value: 
-      objectReference: {fileID: 702655782}
-    - target: {fileID: 6959868740583185173, guid: 3675c8a7756332646875899bccb02a7d,
-        type: 3}
       propertyPath: dmgText
       value: 
       objectReference: {fileID: 1482893875}
@@ -3433,11 +3405,6 @@ PrefabInstance:
       propertyPath: corutineActive
       value: 
       objectReference: {fileID: 1393929327}
-    - target: {fileID: 6959868740583185173, guid: 3675c8a7756332646875899bccb02a7d,
-        type: 3}
-      propertyPath: playerInitialGold
-      value: 15
-      objectReference: {fileID: 0}
     - target: {fileID: 6959868740583185174, guid: 3675c8a7756332646875899bccb02a7d,
         type: 3}
       propertyPath: m_Name

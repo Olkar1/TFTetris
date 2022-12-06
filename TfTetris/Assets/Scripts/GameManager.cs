@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class GameManager : MonoBehaviour
-{
+public class GameManager : MonoBehaviour {
 
     private static GameStatus gameStatus;
 
@@ -29,6 +28,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Player player;
     [SerializeField] private Timer timer;
     [SerializeField] private Shop shop;
+    [SerializeField] private GridManager grid;
 
     public static GameManager instance;
 
@@ -42,20 +42,21 @@ public class GameManager : MonoBehaviour
         PrepereNextRound,
         Wait
     }
-    void Start()
-    {
+    void Start() {
         StartGame();
     }
 
-    void Update()
-    {
+    void Update() {
+        UpdateGameStatus();
+    }
+    private void UpdateGameStatus() {
         switch (gameStatus) {
             case GameStatus.MoveMonsters:
                 StartCoroutine(ReleseMonsters());
                 SetGameStatus(GameStatus.Wait);
                 break;
             case GameStatus.CalculatingScore:
-                StartCoroutine(CalculateScoreAndLounchSpecialObject());
+                StartCoroutine(CalculateScoreAndLaunchSpecialObject());
                 SetGameStatus(GameStatus.Wait);
                 break;
             case GameStatus.PrepereNextRound:
@@ -77,25 +78,14 @@ public class GameManager : MonoBehaviour
                 break;
         }
     }
-    /// Iteration start from upper right corner
-    /// direction of iteration : Left,down
     private IEnumerator ReleseMonsters() {
-        List<Field> fields = GridManager.instance.fields;
-        Vector2 fieldSize = GridManager.instance.GetGridSize();/// x:column, y: row
+        List<Field> fields = grid.GetSortedFields();
 
-        int checkingRowNumber = 1;
-        for (int field = 0; field < fields.Count; field++) {
-            Field monsterField = fields[(fields.Count - 1 * checkingRowNumber) - (int)fieldSize.y * field];
-            if (monsterField.GetMonster()) {
-                yield return StartCoroutine(monsterField.GetMonster().MoveMonster());
-                monsterField.SetMonster(null);
-            }
-            if (field == (int)(fieldSize.x - 1)) {
-                checkingRowNumber++;
-                field = -1;
-            }
-            if (checkingRowNumber > (int)fieldSize.y) {
-                break;
+        foreach (var field in fields) {
+            if (field.GetMonster()) {
+                Monster monster = field.GetMonster();
+                yield return StartCoroutine(monster.MoveMonster());
+                field.SetMonster(null);
             }
         }
         yield return new WaitForSeconds(1f);//DELEY WHEN NO MONSTERS
@@ -115,7 +105,7 @@ public class GameManager : MonoBehaviour
         return gameStatus;
     }
     private void ClearMonsters() {
-        for (int monsterIndex = 0; monsterIndex< monstersParent.childCount; monsterIndex++) {
+        for (int monsterIndex = 0; monsterIndex < monstersParent.childCount; monsterIndex++) {
             Destroy(monstersParent.GetChild(monsterIndex).gameObject);
         }
     }
@@ -124,41 +114,47 @@ public class GameManager : MonoBehaviour
             Destroy(specialObjectParent.GetChild(specialObjIndex).gameObject);
         }
     }
-    private IEnumerator CalculateScoreAndLounchSpecialObject() {
-        lastGameScore = 0;
-        List<Field> fields = GridManager.instance.fields;
-        Vector2 fieldSize = GridManager.instance.GetGridSize();/// x:column, y: row
-        int scoreInRow = 0;
+    private IEnumerator CalculateScoreAndLaunchSpecialObject() {
+        int rowSize = (int)grid.GetGridSize().x;
+        List<Field> fields = grid.GetSortedFields();
         int totalScore = 0;
-        int checkingRowNumber = 1;
-        for (int field = 0; field < fields.Count; field++) {
-            Field checkingField = fields[(fields.Count - 1 * checkingRowNumber) - (int)fieldSize.y * field];
-            SpecialObject specialObject = checkingField.GetSpecialObject();
-            if (specialObject) {
-                specialObject.specialEffect();
-            }
-            if (checkingField.scored) {
+
+        int scoreInRow = 0;
+        int currentFieldIndex = -1;
+        foreach (var field in fields) {
+            currentFieldIndex++;
+            LaunchSpecialObject(field);
+            if (field.scored) {
                 scoreInRow++;
             }
-            if (field == (int)(fieldSize.x - 1)) {
-                if(scoreInRow == fieldSize.x) {
+            if (currentFieldIndex == rowSize) {
+                currentFieldIndex = -1;
+                if (ShouldDoubleScore(ref scoreInRow)) {
                     scoreInRow = scoreInRow * 2;
                 }
-                checkingRowNumber++;
-                field = -1;
                 totalScore += scoreInRow;
                 scoreInRow = 0;
             }
-            if (checkingRowNumber > (int)fieldSize.y) {
-                break;
-            }
         }
-        lastGameScore = totalScore;
-        dmgText.text = "Dmg done: " + lastGameScore;
+        dmgText.text = "Dmg done: " + totalScore;
         int deleyBeetwenRounds = 3;
 
         yield return new WaitForSeconds(deleyBeetwenRounds);
         SetGameStatus(GameStatus.PrepereNextRound);
+    }
+
+    private void LaunchSpecialObject(Field field) {
+        if (field.GetSpecialObject()) {
+            SpecialObject specialObject = field.GetSpecialObject();
+            specialObject.specialEffect();
+        }
+    }
+    private bool ShouldDoubleScore(ref int scoreInRow) {
+        int rowSize = (int)grid.GetGridSize().x;
+        if (scoreInRow == rowSize) {
+            return true;
+        }
+        return false;
     }
     private void StartGame() {
 
@@ -169,7 +165,7 @@ public class GameManager : MonoBehaviour
     }
     private void SetBoardScenerio(BoardScenerio scenerio) {
         foreach (var special in scenerio.scenerioObjects) {
-            for (int i = 0; i< special.positions.Count;i++) {
+            for (int i = 0; i < special.positions.Count; i++) {
                 SpecialObject specialObject = Instantiate(special.objectToSpawn);
                 specialObject.transform.SetParent(specialObjectParent);
                 GridManager.instance.GetFieldByIndex((int)special.positions[i].x, (int)special.positions[i].y).SetSpecialObject(specialObject);

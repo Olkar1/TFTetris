@@ -9,6 +9,7 @@ public class GridManager : MonoBehaviour
     [SerializeField] private int rowNumber;
 
     public List<Field> fields;
+    private List<Field> sortedFields = new List<Field>();
     private Field currentActiveField;
     public float fieldsOffset;
 
@@ -20,6 +21,27 @@ public class GridManager : MonoBehaviour
     }
     void Start() {
         SpawnGrid();
+        sortedFields = ReturnSortedFields();
+    }
+    private List<Field> ReturnSortedFields() {
+        //List<Field> fields = GridManager.instance.fields;
+        Vector2 fieldSize = GetGridSize();/// x:column, y: row
+
+        List<Field> sortedFields = new List<Field>();
+        int checkingRowNumber = 1;
+        for (int field = 0; field < fields.Count; field++) {
+
+            Field currentField = fields[(fields.Count - 1 * checkingRowNumber) - (int)fieldSize.y * field];
+            sortedFields.Add(currentField);
+            if (field == (int)(fieldSize.x - 1)) {
+                checkingRowNumber++;
+                field = -1;
+            }
+            if (checkingRowNumber > (int)fieldSize.y) {
+                break;
+            }
+        }
+        return sortedFields;
     }
     private void SpawnGrid()
     {
@@ -106,5 +128,8 @@ public class GridManager : MonoBehaviour
     }
     public Field GetCurrentActiveField() { 
         return currentActiveField;
+    }
+    public List<Field> GetSortedFields() {
+        return sortedFields;
     }
 }

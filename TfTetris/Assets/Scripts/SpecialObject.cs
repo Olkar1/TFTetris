@@ -12,6 +12,7 @@ public class SpecialObject : MonoBehaviour
     public SplecialEffectStatus splecialEffectStatus;
     public delegate void SpecialEffect();
     public SpecialEffect specialEffect;
+    [SerializeField] private int effectValue;
     private void Start() {
         switch (splecialEffectStatus) {
             case SplecialEffectStatus.dmg:
@@ -27,6 +28,6 @@ public class SpecialObject : MonoBehaviour
         Debug.LogError("HealEnemy");
     }
     private void DmgPlayer() {
-        Debug.LogError("DmgPlayer");
+        Player.DmgPlayer(effectValue);
     }
 }
