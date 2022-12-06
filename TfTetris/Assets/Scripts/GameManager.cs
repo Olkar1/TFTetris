@@ -45,7 +45,32 @@ public class GameManager : MonoBehaviour {
     void Start() {
         StartGame();
     }
+    private void StartGame() {
 
+        SetGameStatus(GameStatus.Shoping);
+        SetBoardScenerio(GetRandomScenerio());
+        shop.SpawnIcons();
+        shop.SetNewMonsters(true);
+    }
+    public void SetGameStatus(GameStatus status) {
+        gameStatus = status;
+        if (status == GameStatus.Wait) {
+            corutineActive.text = "Corutine active";
+        }
+        else {
+            corutineActive.text = "";
+            statusText.text = status.ToString();
+        }
+    }
+    private void SetBoardScenerio(BoardScenerio scenerio) {
+        foreach (var special in scenerio.scenerioObjects) {
+            for (int i = 0; i < special.positions.Count; i++) {
+                SpecialObject specialObject = Instantiate(special.objectToSpawn);
+                specialObject.transform.SetParent(specialObjectParent);
+                GridManager.instance.GetFieldByIndex((int)special.positions[i].x, (int)special.positions[i].y).SetSpecialObject(specialObject);
+            }
+        }
+    }
     void Update() {
         UpdateGameStatus();
     }
@@ -91,29 +116,6 @@ public class GameManager : MonoBehaviour {
         yield return new WaitForSeconds(1f);//DELEY WHEN NO MONSTERS
         SetGameStatus(GameStatus.CalculatingScore);
     }
-    public void SetGameStatus(GameStatus status) {
-        gameStatus = status;
-        if (status == GameStatus.Wait) {
-            corutineActive.text = "Corutine active";
-        }
-        else {
-            corutineActive.text = "";
-            statusText.text = status.ToString();
-        }
-    }
-    public GameStatus GetGameStatus() {
-        return gameStatus;
-    }
-    private void ClearMonsters() {
-        for (int monsterIndex = 0; monsterIndex < monstersParent.childCount; monsterIndex++) {
-            Destroy(monstersParent.GetChild(monsterIndex).gameObject);
-        }
-    }
-    private void ClearSpecialObjects() {
-        for (int specialObjIndex = 0; specialObjIndex < specialObjectParent.childCount; specialObjIndex++) {
-            Destroy(specialObjectParent.GetChild(specialObjIndex).gameObject);
-        }
-    }
     private IEnumerator CalculateScoreAndLaunchSpecialObject() {
         int rowSize = (int)grid.GetGridSize().x;
         List<Field> fields = grid.GetSortedFields();
@@ -142,7 +144,6 @@ public class GameManager : MonoBehaviour {
         yield return new WaitForSeconds(deleyBeetwenRounds);
         SetGameStatus(GameStatus.PrepereNextRound);
     }
-
     private void LaunchSpecialObject(Field field) {
         if (field.GetSpecialObject()) {
             SpecialObject specialObject = field.GetSpecialObject();
@@ -156,20 +157,14 @@ public class GameManager : MonoBehaviour {
         }
         return false;
     }
-    private void StartGame() {
-
-        SetGameStatus(GameStatus.Shoping);
-        SetBoardScenerio(GetRandomScenerio());
-        shop.SpawnIcons();
-        shop.SetNewMonsters(true);
+    private void ClearMonsters() {
+        for (int monsterIndex = 0; monsterIndex < monstersParent.childCount; monsterIndex++) {
+            Destroy(monstersParent.GetChild(monsterIndex).gameObject);
+        }
     }
-    private void SetBoardScenerio(BoardScenerio scenerio) {
-        foreach (var special in scenerio.scenerioObjects) {
-            for (int i = 0; i < special.positions.Count; i++) {
-                SpecialObject specialObject = Instantiate(special.objectToSpawn);
-                specialObject.transform.SetParent(specialObjectParent);
-                GridManager.instance.GetFieldByIndex((int)special.positions[i].x, (int)special.positions[i].y).SetSpecialObject(specialObject);
-            }
+    private void ClearSpecialObjects() {
+        for (int specialObjIndex = 0; specialObjIndex < specialObjectParent.childCount; specialObjIndex++) {
+            Destroy(specialObjectParent.GetChild(specialObjIndex).gameObject);
         }
     }
     public void SubstractGold(int value) {
@@ -180,5 +175,8 @@ public class GameManager : MonoBehaviour {
         int numberOfScenerios = boardScenerios.Count;
         int randomScenerioIndex = Random.Range(0, numberOfScenerios);
         return boardScenerios[randomScenerioIndex];
+    }
+    public GameStatus GetGameStatus() {
+        return gameStatus;
     }
 }
