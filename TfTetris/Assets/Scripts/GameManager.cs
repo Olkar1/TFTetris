@@ -6,16 +6,17 @@ using TMPro;
 public class GameManager : MonoBehaviour {
 
     private static GameStatus gameStatus;
-
-    private int lastGameScore = 0;
     public int playerInitialGold;
 
-    public List<BoardScenerio> boardScenerios;
+    public Enemy currentEnemy;
+
+    public delegate void OnEnemyDeath();
+    public OnEnemyDeath enemyDeathEvent;
     /// <summary>
     /// TEMP
     /// </summary>
-    [SerializeField] private TextMeshProUGUI statusText;
-    [SerializeField] private TextMeshProUGUI dmgText;
+    [SerializeField] public TextMeshProUGUI playerHealth;
+    [SerializeField] public TextMeshProUGUI enemyHealth;
     [SerializeField] private TextMeshProUGUI corutineActive;
     [SerializeField] private TextMeshProUGUI battleLog;
     [SerializeField] private TextMeshProUGUI goldText;
@@ -25,6 +26,7 @@ public class GameManager : MonoBehaviour {
     public Transform monstersParent;
     public Transform specialObjectParent;
 
+    [SerializeField] private List<Enemy> enemies;
     [SerializeField] private Player player;
     [SerializeField] private Timer timer;
     [SerializeField] private Shop shop;
@@ -34,6 +36,7 @@ public class GameManager : MonoBehaviour {
 
     private void Awake() {
         instance = this;
+        enemyDeathEvent = SetRandomEnemy;
     }
     public enum GameStatus {
         Shoping,
@@ -46,11 +49,9 @@ public class GameManager : MonoBehaviour {
         StartGame();
     }
     private void StartGame() {
-
-        SetGameStatus(GameStatus.Shoping);
-        SetBoardScenerio(GetRandomScenerio());
+        SetCurrentEnemy(GetRandomEnemy());
         shop.SpawnIcons();
-        shop.SetNewMonsters(true);
+        SetGameStatus(GameStatus.PrepereNextRound);
     }
     public void SetGameStatus(GameStatus status) {
         gameStatus = status;
@@ -59,10 +60,10 @@ public class GameManager : MonoBehaviour {
         }
         else {
             corutineActive.text = "";
-            statusText.text = status.ToString();
         }
     }
     private void SetBoardScenerio(BoardScenerio scenerio) {
+        if (!scenerio) { return; }
         foreach (var special in scenerio.scenerioObjects) {
             for (int i = 0; i < special.positions.Count; i++) {
                 SpecialObject specialObject = Instantiate(special.objectToSpawn);
@@ -75,13 +76,14 @@ public class GameManager : MonoBehaviour {
         UpdateGameStatus();
     }
     private void UpdateGameStatus() {
+        if (!currentEnemy) { return; }
         switch (gameStatus) {
             case GameStatus.MoveMonsters:
                 StartCoroutine(ReleseMonsters());
                 SetGameStatus(GameStatus.Wait);
                 break;
             case GameStatus.CalculatingScore:
-                StartCoroutine(CalculateScoreAndLaunchSpecialObject());
+                StartCoroutine(CalculateDamageAndLaunchSpecialObject());
                 SetGameStatus(GameStatus.Wait);
                 break;
             case GameStatus.PrepereNextRound:
@@ -116,10 +118,10 @@ public class GameManager : MonoBehaviour {
         yield return new WaitForSeconds(1f);//DELEY WHEN NO MONSTERS
         SetGameStatus(GameStatus.CalculatingScore);
     }
-    private IEnumerator CalculateScoreAndLaunchSpecialObject() {
+    private IEnumerator CalculateDamageAndLaunchSpecialObject() {
         int rowSize = (int)grid.GetGridSize().x;
         List<Field> fields = grid.GetSortedFields();
-        int totalScore = 0;
+        int totalDmg = 0;
 
         int scoreInRow = 0;
         int currentFieldIndex = -1;
@@ -134,11 +136,11 @@ public class GameManager : MonoBehaviour {
                 if (ShouldDoubleScore(ref scoreInRow)) {
                     scoreInRow = scoreInRow * 2;
                 }
-                totalScore += scoreInRow;
+                totalDmg += scoreInRow;
                 scoreInRow = 0;
             }
         }
-        dmgText.text = "Dmg done: " + totalScore;
+        currentEnemy.DamageEnemy(totalDmg);
         int deleyBeetwenRounds = 3;
 
         yield return new WaitForSeconds(deleyBeetwenRounds);
@@ -171,10 +173,24 @@ public class GameManager : MonoBehaviour {
         Player.SubstractGold(value);
         goldText.text = "Gold: " + Player.GetPlayerGold();
     }
+    private Enemy GetRandomEnemy() {
+        int enemyIndex = Random.Range(0, enemies.Count);
+        return enemies[enemyIndex];
+    }
+    private void SetCurrentEnemy(Enemy enemyToSet) {
+        currentEnemy = enemyToSet;
+    }
+    public void SetRandomEnemy() {
+        Player.playerHealth = 15;
+        currentEnemy = GetRandomEnemy();
+        currentEnemy.enemyHealth = currentEnemy.initHealth;
+        playerHealth.text = Player.playerHealth.ToString();
+        enemyHealth.text = "Enemy health: " + currentEnemy.GetEnemyHealth().ToString();
+    }
     private BoardScenerio GetRandomScenerio() {
-        int numberOfScenerios = boardScenerios.Count;
+        int numberOfScenerios = currentEnemy.GetEnemyScenerios().Count;
         int randomScenerioIndex = Random.Range(0, numberOfScenerios);
-        return boardScenerios[randomScenerioIndex];
+        return currentEnemy.GetEnemyScenerios()[randomScenerioIndex];
     }
     public GameStatus GetGameStatus() {
         return gameStatus;

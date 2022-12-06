@@ -5,10 +5,11 @@ using UnityEngine;
 
 public class Player : MonoBehaviour{
 
-    private static int playerHealth;
+    public static int playerHealth = 15;
     public static int gold;
     private void Start() {
         SetGold(GameManager.instance.playerInitialGold);
+        GameManager.instance.playerHealth.text = "Player health: " + playerHealth.ToString();
     }
     public static void SetGold(int value) {
         gold = value;
@@ -18,8 +19,10 @@ public class Player : MonoBehaviour{
         if (playerHealth <= 0) {
             KillPlayer();
         }
+        GameManager.instance.playerHealth.text = "Player health: " + playerHealth.ToString();
     }
     private static void KillPlayer() {
+        GameManager.instance.SetRandomEnemy();
         Debug.LogError("You are dead");
     }
     public static int GetPlayerGold() {

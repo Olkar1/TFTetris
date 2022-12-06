@@ -1655,7 +1655,7 @@ GameObject:
   - component: {fileID: 1482893874}
   - component: {fileID: 1482893875}
   m_Layer: 5
-  m_Name: Score
+  m_Name: EnemyHealth
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1790,7 +1790,7 @@ GameObject:
   - component: {fileID: 1486931370}
   - component: {fileID: 1486931369}
   m_Layer: 5
-  m_Name: Game status
+  m_Name: PlayerHealth
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1913,6 +1913,18 @@ RectTransform:
   m_AnchoredPosition: {x: -146, y: 0.000015258789}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1562658708 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3483143162511616811, guid: b92c9d0cb44b10f4296d8ae68ec3135c,
+    type: 3}
+  m_PrefabInstance: {fileID: 8986155852660098001}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0408f22c5501c2c42bdc9488021da0fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1646468425
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2862,7 +2874,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 786724580, guid: 8db86d0582a96854cbe552aad2479fd9, type: 3}
       propertyPath: initialTime
-      value: 5
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 928118310, guid: 8db86d0582a96854cbe552aad2479fd9, type: 3}
       propertyPath: m_AnchorMax.y
@@ -3372,6 +3384,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6959868740583185173, guid: 3675c8a7756332646875899bccb02a7d,
         type: 3}
+      propertyPath: grid
+      value: 
+      objectReference: {fileID: 1562658708}
+    - target: {fileID: 6959868740583185173, guid: 3675c8a7756332646875899bccb02a7d,
+        type: 3}
       propertyPath: shop
       value: 
       objectReference: {fileID: 1038300206}
@@ -3402,9 +3419,36 @@ PrefabInstance:
       objectReference: {fileID: 1486931369}
     - target: {fileID: 6959868740583185173, guid: 3675c8a7756332646875899bccb02a7d,
         type: 3}
+      propertyPath: enemyHealth
+      value: 
+      objectReference: {fileID: 1482893875}
+    - target: {fileID: 6959868740583185173, guid: 3675c8a7756332646875899bccb02a7d,
+        type: 3}
+      propertyPath: playerHealth
+      value: 
+      objectReference: {fileID: 1486931369}
+    - target: {fileID: 6959868740583185173, guid: 3675c8a7756332646875899bccb02a7d,
+        type: 3}
       propertyPath: corutineActive
       value: 
       objectReference: {fileID: 1393929327}
+    - target: {fileID: 6959868740583185173, guid: 3675c8a7756332646875899bccb02a7d,
+        type: 3}
+      propertyPath: enemies.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6959868740583185173, guid: 3675c8a7756332646875899bccb02a7d,
+        type: 3}
+      propertyPath: enemies.Array.data[0]
+      value: 
+      objectReference: {fileID: 6235713243451440699, guid: bb7395eb69336664995fd741709fdfb8,
+        type: 3}
+    - target: {fileID: 6959868740583185173, guid: 3675c8a7756332646875899bccb02a7d,
+        type: 3}
+      propertyPath: enemies.Array.data[1]
+      value: 
+      objectReference: {fileID: 6235713243451440699, guid: 5e69b8f5e3946464e94f7374447aa6ba,
+        type: 3}
     - target: {fileID: 6959868740583185174, guid: 3675c8a7756332646875899bccb02a7d,
         type: 3}
       propertyPath: m_Name
