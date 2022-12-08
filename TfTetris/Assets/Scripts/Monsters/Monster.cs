@@ -22,11 +22,34 @@ public class Monster : ObjectOnField {
     }
     public IEnumerator MoveMonster() {
         Field upfrontField = GridManager.instance.GetUpFrontField(positionField);
-        while (upfrontField && upfrontField.IsEmpty()) {
-            positionField.SetMonster(null);
-            positionField = upfrontField;
-            transform.position = positionField.middlePos;
-            upfrontField = GridManager.instance.GetUpFrontField(positionField);
+        while (upfrontField) {
+            if (upfrontField.IsEmpty()) {
+                positionField.SetMonster(null);
+                positionField = upfrontField;
+                transform.position = positionField.middlePos;
+                upfrontField = GridManager.instance.GetUpFrontField(positionField);
+            }
+            else if (upfrontField.GetMovementModificationObject() && 
+                upfrontField.GetMovementModificationObject().objectType == MovementModificationObject.ModificationType.JumpOver) {
+                if (GridManager.instance.GetNextEmptyField(positionField)) {
+                    positionField.SetMonster(null);
+                    positionField = GridManager.instance.GetNextEmptyField(positionField);
+                    transform.position = positionField.middlePos;
+                    upfrontField = GridManager.instance.GetUpFrontField(positionField);
+                }
+                else {
+                    positionField.SetMonster(null);
+                    positionField = upfrontField;
+                    transform.position = positionField.middlePos;
+                    break;
+                }
+                ///Find Next empty upfrontfield
+                /// if empty go there
+                /// if not 
+            }
+            else {
+                break;
+            }
             yield return new WaitForSeconds(0.5f);
         }
         positionField.SetMonster(this);

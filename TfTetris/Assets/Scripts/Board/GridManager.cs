@@ -113,9 +113,25 @@ public class GridManager : MonoBehaviour
 
     public Field GetUpFrontField(Field searchField) {
 
-        float searchColumn = searchField.coordinates.x;
-        float searchRow = searchField.coordinates.y;
-        return GetFieldByIndex((int)searchColumn, (int)(searchRow + 1));
+        float searchRow = searchField.coordinates.x;
+        float searchColumn = searchField.coordinates.y;
+        return GetFieldByIndex((int)searchRow, (int)(searchColumn + 1));
+    }
+    public Field GetNextEmptyField(Field searchField) {//TOFIX
+        float searchRow = searchField.coordinates.x;
+        float searchColumn = searchField.coordinates.y;
+        Debug.LogError(rowNumber + " " + searchRow);
+        int leftRows = rowNumber - (int)searchField.coordinates.x;
+        Debug.LogError(leftRows);
+        for (int i = 2; i < leftRows; i++) {
+            Debug.LogError("CheckingField: " + GetFieldByIndex((int)searchRow, (int)(searchColumn + i)).name);
+            if (GetFieldByIndex((int)searchRow,(int)(searchColumn) + i).IsEmpty()) {
+                Debug.LogError("Empty found");
+                return GetFieldByIndex((int)searchRow, (int)(searchColumn) + i);
+            }
+        }
+        Debug.LogError("Empty not found");
+        return null;
     }
     public Vector2 GetGridSize() {
         return new Vector2(columnNumber, rowNumber);

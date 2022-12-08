@@ -63,6 +63,9 @@ public class Field : MonoBehaviour
     public void SetMovementObject(MovementModificationObject movementModificationObject) {
         movementObject = movementModificationObject;
     }
+    public MovementModificationObject GetMovementModificationObject() {
+        return movementObject;
+    }
     public void SetSpecialObject(SpecialObject specialObject) {
         if(!IsEmpty()) {
             Destroy(specialObject.gameObject);
