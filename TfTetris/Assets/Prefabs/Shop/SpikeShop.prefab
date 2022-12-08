@@ -18,6 +18,12 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 5216660784448663422, guid: cd2448a36c0016240bebc44928fb0dcf,
         type: 3}
+    - target: {fileID: 1988016821498788613, guid: 47bc61ac953b5854d865ac9e3eebb950,
+        type: 3}
+      propertyPath: objectToSpawn
+      value: 
+      objectReference: {fileID: 5216660784448663422, guid: cd2448a36c0016240bebc44928fb0dcf,
+        type: 3}
     - target: {fileID: 2483940644741291667, guid: 47bc61ac953b5854d865ac9e3eebb950,
         type: 3}
       propertyPath: m_TargetGraphic

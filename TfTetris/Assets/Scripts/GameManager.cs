@@ -25,6 +25,7 @@ public class GameManager : MonoBehaviour {
     /// </summary>
     public Transform monstersParent;
     public Transform specialObjectParent;
+    public Transform movementObjectsParent;
 
     [SerializeField] private List<Enemy> enemies;
     [SerializeField] private Player player;
@@ -49,7 +50,7 @@ public class GameManager : MonoBehaviour {
         StartGame();
     }
     private void StartGame() {
-        SetCurrentEnemy(GetRandomEnemy());
+        SetRandomEnemy();
         shop.SpawnIcons();
         SetGameStatus(GameStatus.PrepereNextRound);
     }
@@ -90,6 +91,8 @@ public class GameManager : MonoBehaviour {
                 battleLog.text = "";
                 ClearMonsters();
                 ClearSpecialObjects();
+                ClearMovementObjects();
+
                 GridManager.instance.CleardFields();
 
                 shop.SetNewMonsters(true);
@@ -169,6 +172,11 @@ public class GameManager : MonoBehaviour {
             Destroy(specialObjectParent.GetChild(specialObjIndex).gameObject);
         }
     }
+    private void ClearMovementObjects() {
+        for (int specialObjIndex = 0; specialObjIndex < movementObjectsParent.childCount; specialObjIndex++) {
+            Destroy(movementObjectsParent.GetChild(specialObjIndex).gameObject);
+        }
+    }
     public void SubstractGold(int value) {
         Player.SubstractGold(value);
         goldText.text = "Gold: " + Player.GetPlayerGold();
@@ -183,7 +191,7 @@ public class GameManager : MonoBehaviour {
     public void SetRandomEnemy() {
         Player.playerHealth = 15;
         currentEnemy = GetRandomEnemy();
-        currentEnemy.enemyHealth = currentEnemy.initHealth;
+        currentEnemy.ResetHealth();
         playerHealth.text = Player.playerHealth.ToString();
         enemyHealth.text = "Enemy health: " + currentEnemy.GetEnemyHealth().ToString();
     }

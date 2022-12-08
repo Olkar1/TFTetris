@@ -2,26 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Monster : MonoBehaviour
-{
-    public bool isHold = false;
-    public Field positionField;
+public class Monster : ObjectOnField {
     public radiationField radiationField;
     public Transform attackParent;
 
-    void Update()
-    {
-        if (!isHold) { return; }
-        GlueToPointerAndSetCurrentPositionField();
-        PutMonsterOnField(positionField);
-    }
-    private void GlueToPointerAndSetCurrentPositionField() {
-        if (isHold) {
-            transform.position = Pointer.pointerPosition;
-            positionField = GridManager.instance.GetCurrentActiveField();
-        }
-    }
-    private void PutMonsterOnField(Field currentField) {
+    public override void PutObjectOnField(Field currentField) {
         if (Input.GetMouseButton(0)) {
             if (currentField && currentField.IsEmpty()) {
                 transform.position = currentField.middlePos;
@@ -35,7 +20,6 @@ public class Monster : MonoBehaviour
             }
         }
     }
-
     public IEnumerator MoveMonster() {
         Field upfrontField = GridManager.instance.GetUpFrontField(positionField);
         while (upfrontField && upfrontField.IsEmpty()) {

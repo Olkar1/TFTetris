@@ -9,24 +9,32 @@ public class MonsterShopIcon : MonoBehaviour
     [SerializeField] private Image iconImage;
     [SerializeField] private int cost = 0;
     [SerializeField] private Button button;
-    [SerializeField] private Monster monster;
+    [SerializeField] private ObjectOnField objectToSpawn;
     [SerializeField] private TextMeshProUGUI costText;
 
     public bool bought = false;
     Color iconColor = new Color();
     private void Awake() {
-        button.onClick.AddListener(SpawnMonster);
+        button.onClick.AddListener(SpawnObject);
         iconColor = iconImage.color;
     }
-    private void SpawnMonster() {
+    private void SpawnObject() {
         if (GameManager.instance.GetGameStatus() != GameManager.GameStatus.Shoping || 
             bought || 
             Pointer.hold || 
             Player.GetPlayerGold() < cost) { return; }
 
-        Monster newMonster = Instantiate(monster);
-        newMonster.transform.SetParent(GameManager.instance.monstersParent);
-        newMonster.isHold = true;
+        if (objectToSpawn.GetComponent<Monster>()) {
+            Monster newMonster = Instantiate(objectToSpawn) as Monster;
+            newMonster.transform.SetParent(GameManager.instance.monstersParent);
+            newMonster.isHold = true;
+        }
+        else {
+            MovementModificationObject newMonster = Instantiate(objectToSpawn) as MovementModificationObject;
+            newMonster.transform.SetParent(GameManager.instance.movementObjectsParent);
+            newMonster.isHold = true;
+        }
+
         Pointer.hold = true;
         bought = true;
         iconImage.color = new Color(iconColor.r, iconColor.g, iconColor.b, 0.1f);
@@ -37,7 +45,7 @@ public class MonsterShopIcon : MonoBehaviour
         cost = newMonster.cost;
         costText.text = cost + " gold";
         button = newMonster.button;
-        monster = newMonster.monster;
+        objectToSpawn = newMonster.objectToSpawn;
         iconColor = newMonster.iconImage.color;
     }
     public void ResetIconAlpha() {

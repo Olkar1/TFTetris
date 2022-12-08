@@ -28,6 +28,12 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 8451208068281799028, guid: 0abe9a736e36303419e2158b039a376c,
         type: 3}
+    - target: {fileID: 4347226590030313839, guid: 9bbf4b309f26af849a2fd0ae018d5658,
+        type: 3}
+      propertyPath: objectToSpawn
+      value: 
+      objectReference: {fileID: 8451208068281799028, guid: 0abe9a736e36303419e2158b039a376c,
+        type: 3}
     - target: {fileID: 6786481324384913442, guid: 9bbf4b309f26af849a2fd0ae018d5658,
         type: 3}
       propertyPath: m_Color.b

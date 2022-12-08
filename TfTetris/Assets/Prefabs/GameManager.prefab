@@ -31,6 +31,37 @@ Transform:
   m_Father: {fileID: 6959868740583185172}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6400774954923004400
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5963156144138391394}
+  m_Layer: 0
+  m_Name: MovementObjectParent
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5963156144138391394
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6400774954923004400}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6959868740583185172}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6959868740411484956
 GameObject:
   m_ObjectHideFlags: 0
@@ -93,6 +124,7 @@ Transform:
   m_Children:
   - {fileID: 6959868740411484947}
   - {fileID: 3070468683153866799}
+  - {fileID: 5963156144138391394}
   - {fileID: 2815771504764583180}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -110,25 +142,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerInitialGold: 15
-  boardScenerios:
-  - {fileID: 11400000, guid: 64675f08b9de3d54ba01a10cd1879e33, type: 2}
-  - {fileID: 11400000, guid: ad519dddc2e943e458d6388ee500d4d0, type: 2}
-  - {fileID: 11400000, guid: 34ab05ec27463eb49b2cb3af78809ee2, type: 2}
-  - {fileID: 11400000, guid: a2689b7ea06040740b640ce239a7b361, type: 2}
-  - {fileID: 11400000, guid: cff5e163ff9463c458401696b89c8b51, type: 2}
-  - {fileID: 11400000, guid: 1b75ac43c51aa52488b9b8d11ddc32b5, type: 2}
-  - {fileID: 11400000, guid: 54253bc4ae301864dba877152ac1b7b1, type: 2}
-  - {fileID: 11400000, guid: ffa3d5b601412a8489d7e8ec513e373f, type: 2}
-  statusText: {fileID: 0}
-  dmgText: {fileID: 0}
+  currentEnemy: {fileID: 0}
+  playerHealth: {fileID: 0}
+  enemyHealth: {fileID: 0}
   corutineActive: {fileID: 0}
   battleLog: {fileID: 0}
   goldText: {fileID: 0}
   monstersParent: {fileID: 6959868740411484947}
   specialObjectParent: {fileID: 3070468683153866799}
+  movementObjectsParent: {fileID: 5963156144138391394}
+  enemies:
+  - {fileID: 6235713243451440699, guid: bb7395eb69336664995fd741709fdfb8, type: 3}
+  - {fileID: 6235713243451440699, guid: 5e69b8f5e3946464e94f7374447aa6ba, type: 3}
   player: {fileID: 702655782}
   timer: {fileID: 0}
   shop: {fileID: 0}
+  grid: {fileID: 0}
 --- !u!1001 &7791617411960998115
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -139,7 +168,7 @@ PrefabInstance:
     - target: {fileID: 5418608268946175471, guid: f6130cb1c95f29846aedb010af2c60b8,
         type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5418608268946175471, guid: f6130cb1c95f29846aedb010af2c60b8,
         type: 3}

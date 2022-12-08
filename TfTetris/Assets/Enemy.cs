@@ -4,12 +4,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour {
-    [SerializeField] public int enemyHealth;
+    [SerializeField] private int enemyHealth;
     public int initHealth;
     [SerializeField] private List<BoardScenerio> enemyScenerios;
     private void Start() {
-        initHealth = enemyHealth;
-        GameManager.instance.enemyHealth.text = "Enemy health: " + enemyHealth.ToString();
+        ResetHealth();
     }
     public List<BoardScenerio> GetEnemyScenerios() {
         return enemyScenerios;
@@ -29,7 +28,10 @@ public class Enemy : MonoBehaviour {
         GameManager.instance.enemyHealth.text = "Enemy health: " + enemyHealth.ToString();
     }
     private void Kill() {
-        Debug.LogError("Enemy Defeted");
         GameManager.instance.enemyDeathEvent();
+    }
+    public void ResetHealth() {
+        enemyHealth = initHealth;
+        GameManager.instance.enemyHealth.text = "Enemy health: " + enemyHealth.ToString();
     }
 }

@@ -23,7 +23,6 @@ public class Player : MonoBehaviour{
     }
     private static void KillPlayer() {
         GameManager.instance.SetRandomEnemy();
-        Debug.LogError("You are dead");
     }
     public static int GetPlayerGold() {
         return gold;

@@ -21,7 +21,8 @@ public class Field : MonoBehaviour
     private float meshSize;
 
     [SerializeField] private Monster currentMosnter;
-    [SerializeField] private SpecialObject specialObject;
+    [SerializeField] private MovementModificationObject movementObject;
+    [SerializeField] private SpecialObject enemyAttack;
     public bool scored = false;
     
     [SerializeField] private GameObject outline;
@@ -59,6 +60,9 @@ public class Field : MonoBehaviour
     public void SetMonster(Monster monster) {
         currentMosnter = monster;
     }
+    public void SetMovementObject(MovementModificationObject movementModificationObject) {
+        movementObject = movementModificationObject;
+    }
     public void SetSpecialObject(SpecialObject specialObject) {
         if(!IsEmpty()) {
             Destroy(specialObject.gameObject);
@@ -66,7 +70,7 @@ public class Field : MonoBehaviour
         }
         specialObject.transform.position = middlePos;
         specialObject.position = new Vector2(column, row);
-        this.specialObject = specialObject;
+        this.enemyAttack = specialObject;
     }
     public float GetModelSize()
     {
@@ -74,13 +78,13 @@ public class Field : MonoBehaviour
         return size;
     }
     public SpecialObject GetSpecialObject() {
-        return specialObject;
+        return enemyAttack;
     }
     public Monster GetMonster() {
         return currentMosnter;
     }
     public bool IsEmpty() {
-        bool empty = (currentMosnter == null && specialObject == null);
+        bool empty = (currentMosnter == null && enemyAttack == null && movementObject == null);
         return empty;
     }
 }

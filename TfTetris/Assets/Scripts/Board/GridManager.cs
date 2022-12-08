@@ -124,6 +124,7 @@ public class GridManager : MonoBehaviour
         foreach(Field field in fields) {
             field.scored = false;
             field.SetMonster(null);
+            field.SetMovementObject(null);
         }
     }
     public Field GetCurrentActiveField() { 
