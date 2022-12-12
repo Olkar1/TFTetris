@@ -2943,7 +2943,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 786724580, guid: 8db86d0582a96854cbe552aad2479fd9, type: 3}
       propertyPath: initialTime
-      value: 10
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 928118310, guid: 8db86d0582a96854cbe552aad2479fd9, type: 3}
       propertyPath: m_AnchorMax.y
@@ -3503,6 +3503,11 @@ PrefabInstance:
       propertyPath: corutineActive
       value: 
       objectReference: {fileID: 1393929327}
+    - target: {fileID: 6959868740583185173, guid: 3675c8a7756332646875899bccb02a7d,
+        type: 3}
+      propertyPath: playerInitialGold
+      value: 500
+      objectReference: {fileID: 0}
     - target: {fileID: 6959868740583185174, guid: 3675c8a7756332646875899bccb02a7d,
         type: 3}
       propertyPath: m_Name

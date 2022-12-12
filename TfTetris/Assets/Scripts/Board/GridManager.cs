@@ -118,20 +118,35 @@ public class GridManager : MonoBehaviour
         return GetFieldByIndex((int)searchRow, (int)(searchColumn + 1));
     }
     public Field GetNextEmptyField(Field searchField) {//TOFIX
-        float searchRow = searchField.coordinates.x;
-        float searchColumn = searchField.coordinates.y;
-        Debug.LogError(rowNumber + " " + searchRow);
-        int leftRows = rowNumber - (int)searchField.coordinates.x;
-        Debug.LogError(leftRows);
-        for (int i = 2; i < leftRows; i++) {
-            Debug.LogError("CheckingField: " + GetFieldByIndex((int)searchRow, (int)(searchColumn + i)).name);
-            if (GetFieldByIndex((int)searchRow,(int)(searchColumn) + i).IsEmpty()) {
-                Debug.LogError("Empty found");
-                return GetFieldByIndex((int)searchRow, (int)(searchColumn) + i);
+                                                       //float searchRow = searchField.coordinates.x;
+                                                       //float searchColumn = searchField.coordinates.y;
+
+        //int leftRows = rowNumber - (int)searchField.coordinates.x;
+
+        //for (int i = 1; i < leftRows; i++) {
+        //    Debug.LogError(GetFieldByIndex((int)searchRow, (int)(searchColumn) + i).name);
+        //    if (GetFieldByIndex((int)searchRow,(int)(searchColumn) + i).IsEmpty()) {
+
+        //        return GetFieldByIndex((int)searchRow, (int)(searchColumn) + i);
+        //    }
+        //}
+        //return null;
+        Field upfrontField = GetUpFrontField(searchField);
+        while (true) {
+            if (upfrontField.IsEmpty()) {
+                Debug.LogError("Next empty: " + upfrontField.name);
+                return upfrontField;
+            }
+            else {
+                upfrontField = GetUpFrontField(upfrontField);
+            }
+            if(upfrontField == null) {
+                break;
             }
         }
-        Debug.LogError("Empty not found");
+        Debug.LogError("NO EMPTY");
         return null;
+
     }
     public Vector2 GetGridSize() {
         return new Vector2(columnNumber, rowNumber);

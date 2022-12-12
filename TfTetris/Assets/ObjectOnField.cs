@@ -4,7 +4,7 @@ using UnityEngine;
 
 public abstract class ObjectOnField : MonoBehaviour
 {
-    public Field positionField;
+    public Field currentPositionField;
     public bool isHold = false;
 
     public abstract void PutObjectOnField(Field fieldToPut);
@@ -12,12 +12,12 @@ public abstract class ObjectOnField : MonoBehaviour
     private void Update() {
         if (!isHold) { return; }
         GlueToPointerAndSetCurrentPositionField();
-        PutObjectOnField(positionField);
+        PutObjectOnField(currentPositionField);
     }
     private void GlueToPointerAndSetCurrentPositionField() {
         if (isHold) {
             transform.position = Pointer.pointerPosition;
-            positionField = GridManager.instance.GetCurrentActiveField();
+            currentPositionField = GridManager.instance.GetCurrentActiveField();
         }
     }
 }

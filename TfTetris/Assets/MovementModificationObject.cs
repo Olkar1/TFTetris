@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MovementModificationObject : ObjectOnField
 {
-    public ModificationType objectType;
+    public ModificationType modificationType;
     public enum ModificationType {
         Stop,
         JumpOver
@@ -14,7 +14,7 @@ public class MovementModificationObject : ObjectOnField
             if (currentField && currentField.IsEmpty()) {
                 transform.position = currentField.middlePos;
                 currentField.SetMovementObject(this);
-                positionField = currentField;
+                currentPositionField = currentField;
                 isHold = false;
                 Pointer.hold = false;
             }

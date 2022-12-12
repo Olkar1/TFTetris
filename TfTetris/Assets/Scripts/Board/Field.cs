@@ -87,7 +87,10 @@ public class Field : MonoBehaviour
         return currentMosnter;
     }
     public bool IsEmpty() {
-        bool empty = (currentMosnter == null && enemyAttack == null && movementObject == null);
+        bool empty = (currentMosnter == null && 
+                         enemyAttack == null && 
+                     (movementObject == null || movementObject.modificationType == MovementModificationObject.ModificationType.JumpOver));
+
         return empty;
     }
 }
