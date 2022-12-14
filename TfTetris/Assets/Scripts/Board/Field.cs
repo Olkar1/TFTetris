@@ -24,7 +24,8 @@ public class Field : MonoBehaviour
     [SerializeField] private MovementModificationObject movementObject;
     [SerializeField] private SpecialObject enemyAttack;
     public bool scored = false;
-    
+
+    [SerializeField] private ParticleSystem scoredVFX;
     [SerializeField] private GameObject outline;
     [SerializeField] private MeshFilter meshFilter;
     [SerializeField] private MeshRenderer meshRenderer;
@@ -85,6 +86,16 @@ public class Field : MonoBehaviour
     }
     public Monster GetMonster() {
         return currentMosnter;
+    }
+    public void SetToScored() {
+        scored = true;
+        scoredVFX.Play();
+    }
+    public void ClearField() {
+        scoredVFX.Stop();
+        scored = false;
+        SetMonster(null);
+        SetMovementObject(null);
     }
     public bool IsEmpty() {
         bool empty = (currentMosnter == null && 

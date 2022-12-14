@@ -138,9 +138,7 @@ public class GridManager : MonoBehaviour
     }
     public void CleardFields() {
         foreach(Field field in fields) {
-            field.scored = false;
-            field.SetMonster(null);
-            field.SetMovementObject(null);
+            field.ClearField();
         }
     }
     public Field GetCurrentActiveField() { 

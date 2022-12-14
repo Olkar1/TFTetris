@@ -267,7 +267,7 @@ MonoBehaviour:
   iconImage: {fileID: 8785614160240380488}
   cost: 5
   button: {fileID: 2483940644741291667}
-  monster: {fileID: 9176727281805745219, guid: 007b32867b23d704d931270a430fa6d3, type: 3}
+  objectToSpawn: {fileID: 0}
   costText: {fileID: 2658918205140005671}
   bought: 0
 --- !u!114 &2483940644741291667

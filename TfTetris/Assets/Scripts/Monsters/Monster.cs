@@ -16,6 +16,7 @@ public class Monster : ObjectOnField {
                 currentPositionField = currentField;
                 isHold = false;
                 Pointer.hold = false;
+                animator.SetBool("idle", true);
             }
             else {
                 Debug.LogWarning("Wrong place");
@@ -37,13 +38,13 @@ public class Monster : ObjectOnField {
                 else {
                     ///MoveToNextPosition
                     //SetMonsterPosition(nextField);
-                    yield return MoveMonsterToPosition(nextField);
+                    yield return MoveMonsterToPosition(nextField,true);
                     nextField = GetNextField();
                 }
             }
             else if (nextField.IsEmpty()) {
                 ///MoveToNextPosition
-                yield return MoveMonsterToPosition(nextField);
+                yield return MoveMonsterToPosition(nextField,false);
                 //SetMonsterPosition(nextField);
                 nextField = GetNextField();
             }
@@ -62,8 +63,13 @@ public class Monster : ObjectOnField {
         return upfrontField;
     }
 
-    private IEnumerator MoveMonsterToPosition(Field position) {
-        animator.SetBool("idle", false);
+    private IEnumerator MoveMonsterToPosition(Field position,bool flyOver) {
+        if (!flyOver) {
+            animator.SetBool("idle", false);
+        }
+        else {
+
+        }
         currentPositionField.SetMonster(null);
         bool moveing = true;
         while (moveing) {
@@ -85,7 +91,7 @@ public class Monster : ObjectOnField {
             if (!spawnField) { continue; }
             Vector3 positionToSpawn = spawnField.middlePos;
 
-            spawnField.scored = true;
+            spawnField.SetToScored();
             if (spawnField.GetSpecialObject()) {
                 Destroy(spawnField.GetSpecialObject().gameObject);
             }
