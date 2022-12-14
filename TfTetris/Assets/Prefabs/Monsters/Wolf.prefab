@@ -89,6 +89,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e13b7d7d61d4e364bb3a69b258ae54b6, type: 3}
+--- !u!95 &7416470113093802463 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 6260966173761284112, guid: e13b7d7d61d4e364bb3a69b258ae54b6,
+    type: 3}
+  m_PrefabInstance: {fileID: 3463254739784233423}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8817526445797554488
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -160,6 +166,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Wolf
+      objectReference: {fileID: 0}
+    - target: {fileID: 9176727281805745219, guid: 007b32867b23d704d931270a430fa6d3,
+        type: 3}
+      propertyPath: animator
+      value: 
+      objectReference: {fileID: 7416470113093802463}
+    - target: {fileID: 9176727281805745219, guid: 007b32867b23d704d931270a430fa6d3,
+        type: 3}
+      propertyPath: moveSpeed
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9176727281805745219, guid: 007b32867b23d704d931270a430fa6d3,
         type: 3}

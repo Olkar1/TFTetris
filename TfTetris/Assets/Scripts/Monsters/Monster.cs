@@ -5,6 +5,8 @@ using UnityEngine;
 public class Monster : ObjectOnField {
     public radiationField radiationField;
     public Transform attackParent;
+    public float moveSpeed;
+    [SerializeField] private Animator animator;
 
     public override void PutObjectOnField(Field currentField) {
         if (Input.GetMouseButton(0)) {
@@ -28,28 +30,29 @@ public class Monster : ObjectOnField {
             if (currentFieldModification && 
                 currentFieldModification.modificationType == MovementModificationObject.ModificationType.JumpOver &&
                !nextField.IsEmpty()) {
-                Debug.LogError("Sprawdz nastepne pole");
                 nextField = GridManager.instance.GetNextEmptyField(nextField);
                 if (!nextField) {
                     break;
                 }
                 else {
-                    Debug.LogError("Next empty field: " + nextField);
-                    SetMonsterPosition(nextField);
+                    ///MoveToNextPosition
+                    //SetMonsterPosition(nextField);
+                    yield return MoveMonsterToPosition(nextField);
                     nextField = GetNextField();
                 }
             }
             else if (nextField.IsEmpty()) {
-                Debug.LogError("stan na nastepne pole");
-                SetMonsterPosition(nextField);
+                ///MoveToNextPosition
+                yield return MoveMonsterToPosition(nextField);
+                //SetMonsterPosition(nextField);
                 nextField = GetNextField();
             }
             else {
-                Debug.LogError("brak wyboru");
                 break;
             }
-            yield return new WaitForSeconds(0.5f);
+            //yield return new WaitForSeconds(0.5f);
         }
+        animator.SetBool("idle", true);
         currentPositionField.SetMonster(this);
         SpawnAttack();
     }
@@ -59,10 +62,18 @@ public class Monster : ObjectOnField {
         return upfrontField;
     }
 
-    private void SetMonsterPosition(Field positionToSet) {
+    private IEnumerator MoveMonsterToPosition(Field position) {
+        animator.SetBool("idle", false);
         currentPositionField.SetMonster(null);
-        currentPositionField = positionToSet;
-        transform.position = currentPositionField.middlePos;
+        bool moveing = true;
+        while (moveing) {
+            transform.position = Vector3.MoveTowards(transform.position,position.middlePos,moveSpeed * Time.deltaTime);
+            if (Vector3.Distance(transform.position,position.middlePos)<0.01f) {
+                moveing = false;
+            }
+            yield return new WaitForEndOfFrame();
+        }
+        currentPositionField = position;
     }
 
     private void SpawnAttack() {

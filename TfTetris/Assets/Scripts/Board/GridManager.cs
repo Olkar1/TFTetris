@@ -117,24 +117,10 @@ public class GridManager : MonoBehaviour
         float searchColumn = searchField.coordinates.y;
         return GetFieldByIndex((int)searchRow, (int)(searchColumn + 1));
     }
-    public Field GetNextEmptyField(Field searchField) {//TOFIX
-                                                       //float searchRow = searchField.coordinates.x;
-                                                       //float searchColumn = searchField.coordinates.y;
-
-        //int leftRows = rowNumber - (int)searchField.coordinates.x;
-
-        //for (int i = 1; i < leftRows; i++) {
-        //    Debug.LogError(GetFieldByIndex((int)searchRow, (int)(searchColumn) + i).name);
-        //    if (GetFieldByIndex((int)searchRow,(int)(searchColumn) + i).IsEmpty()) {
-
-        //        return GetFieldByIndex((int)searchRow, (int)(searchColumn) + i);
-        //    }
-        //}
-        //return null;
+    public Field GetNextEmptyField(Field searchField) {
         Field upfrontField = GetUpFrontField(searchField);
         while (true) {
             if (upfrontField.IsEmpty()) {
-                Debug.LogError("Next empty: " + upfrontField.name);
                 return upfrontField;
             }
             else {
@@ -144,7 +130,6 @@ public class GridManager : MonoBehaviour
                 break;
             }
         }
-        Debug.LogError("NO EMPTY");
         return null;
 
     }

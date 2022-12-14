@@ -74,6 +74,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9176727281805745219, guid: 007b32867b23d704d931270a430fa6d3,
         type: 3}
+      propertyPath: animator
+      value: 
+      objectReference: {fileID: 1681411207515200864}
+    - target: {fileID: 9176727281805745219, guid: 007b32867b23d704d931270a430fa6d3,
+        type: 3}
+      propertyPath: moveSpeed
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9176727281805745219, guid: 007b32867b23d704d931270a430fa6d3,
+        type: 3}
       propertyPath: monsterCost
       value: 3
       objectReference: {fileID: 0}
@@ -180,3 +190,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fdacaae60b920e24fa18970e6f402660, type: 3}
+--- !u!95 &1681411207515200864 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5366632779156957716, guid: fdacaae60b920e24fa18970e6f402660,
+    type: 3}
+  m_PrefabInstance: {fileID: 6714742256430217076}
+  m_PrefabAsset: {fileID: 0}
