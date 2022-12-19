@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour {
     private static GameStatus gameStatus;
     public int playerInitialGold;
 
-    public Enemy currentEnemy;
+    private Enemy currentEnemy;
 
     public delegate void OnEnemyDeath();
     public OnEnemyDeath enemyDeathEvent;
@@ -50,6 +50,8 @@ public class GameManager : MonoBehaviour {
         StartGame();
     }
     private void StartGame() {
+        ///SpawnGrid
+        grid.SpawnGrid();
         SetRandomEnemy();
         shop.SpawnIcons();
         SetGameStatus(GameStatus.PrepereNextRound);
@@ -202,5 +204,8 @@ public class GameManager : MonoBehaviour {
     }
     public GameStatus GetGameStatus() {
         return gameStatus;
+    }
+    public Enemy GetCurrentEnemy() {
+        return currentEnemy;
     }
 }

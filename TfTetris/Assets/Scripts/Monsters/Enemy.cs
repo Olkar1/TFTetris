@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour {
-    [SerializeField] private int enemyHealth;
+    private int enemyHealth;
     public int initHealth;
     [SerializeField] private List<BoardScenerio> enemyScenerios;
     private void Start() {

@@ -8,10 +8,10 @@ public class GridManager : MonoBehaviour
     [SerializeField] private int columnNumber;
     [SerializeField] private int rowNumber;
 
-    public List<Field> fields;
+    private List<Field> fields = new List<Field>();
     private List<Field> sortedFields = new List<Field>();
     private Field currentActiveField;
-    public float fieldsOffset;
+    [SerializeField] private float fieldsOffset;
 
     public static GridManager instance;
 
@@ -20,11 +20,9 @@ public class GridManager : MonoBehaviour
         instance = this;
     }
     void Start() {
-        SpawnGrid();
-        sortedFields = ReturnSortedFields();
+
     }
     private List<Field> ReturnSortedFields() {
-        //List<Field> fields = GridManager.instance.fields;
         Vector2 fieldSize = GetGridSize();/// x:column, y: row
 
         List<Field> sortedFields = new List<Field>();
@@ -43,8 +41,7 @@ public class GridManager : MonoBehaviour
         }
         return sortedFields;
     }
-    private void SpawnGrid()
-    {
+    public void SpawnGrid(){
         fields.Clear();
         for (int rowIndex = 0; rowIndex < columnNumber; rowIndex++) {
             for (int columnIndex = 0; columnIndex < rowNumber; columnIndex++) {
@@ -56,6 +53,7 @@ public class GridManager : MonoBehaviour
                 }
             }
         }
+        sortedFields = ReturnSortedFields();
     }
     private void Update() {
         GetFieldByPointerPosition(Pointer.pointerPosition);

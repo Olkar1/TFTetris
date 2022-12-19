@@ -68,7 +68,7 @@ public class Monster : ObjectOnField {
             animator.SetBool("idle", false);
         }
         else {
-
+            transform.position = new Vector3(transform.position.x, 2f, transform.position.z);
         }
         currentPositionField.SetMonster(null);
         bool moveing = true;

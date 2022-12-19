@@ -25,7 +25,7 @@ public class SpecialObject : MonoBehaviour
     }
 
     private void HealEnemy() {
-        GameManager.instance.currentEnemy.HealEnemy(effectValue);
+        GameManager.instance.GetCurrentEnemy().HealEnemy(effectValue);
     }
     private void DmgPlayer() {
         Player.DmgPlayer(effectValue);
