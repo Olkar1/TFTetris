@@ -76,34 +76,24 @@ public class GameManager : MonoBehaviour {
         }
     }
     void Update() {
+        Debug.LogError(gameStatus);
         UpdateGameStatus();
     }
     private void UpdateGameStatus() {
         if (!currentEnemy) { return; }
         switch (gameStatus) {
             case GameStatus.MoveMonsters:
+                SetGameStatus(GameStatus.Wait);
                 StartCoroutine(ReleseMonsters());
                 Pointer.hold = false;
-                SetGameStatus(GameStatus.Wait);
                 break;
             case GameStatus.CalculatingScore:
-                StartCoroutine(CalculateDamageAndLaunchSpecialObject());
                 SetGameStatus(GameStatus.Wait);
+                StartCoroutine(CalculateDamageAndLaunchSpecialObject());
                 break;
-            case GameStatus.PrepereNextRound:
-                battleLog.text = "";
-                ClearMonsters();
-                ClearSpecialObjects();
-                ClearMovementObjects();
-
-                GridManager.instance.CleardFields();
-
-                shop.SetNewMonsters(true);
-                timer.ResetTimer();
-                Player.SetGold(playerInitialGold);
-
-                SetGameStatus(GameStatus.Shoping);
-                SetBoardScenerio(GetRandomScenerio());
+            case GameStatus.PrepereNextRound: /// SET TO CORUTINE
+                SetGameStatus(GameStatus.Wait);
+                StartCoroutine(LaunchNextRound());
                 break;
             case GameStatus.Shoping:
                 break;
@@ -121,8 +111,8 @@ public class GameManager : MonoBehaviour {
                 field.SetMonster(null);
             }
         }
-        yield return new WaitForSeconds(1f);//DELEY WHEN NO MONSTERS
         SetGameStatus(GameStatus.CalculatingScore);
+        yield break;
     }
     private IEnumerator CalculateDamageAndLaunchSpecialObject() {
         int rowSize = (int)grid.GetGridSize().x;
@@ -152,6 +142,42 @@ public class GameManager : MonoBehaviour {
         yield return new WaitForSeconds(deleyBeetwenRounds);
         SetGameStatus(GameStatus.PrepereNextRound);
     }
+    private IEnumerator LaunchNextRound() {
+        battleLog.text = "";
+        yield return ClearBoard();
+
+        GridManager.instance.CleardFields();
+
+        shop.SetNewMonsters(true);
+        timer.ResetTimer();
+        Player.SetGold(playerInitialGold);
+
+        SetBoardScenerio(GetRandomScenerio());
+        SetGameStatus(GameStatus.Shoping);
+    }
+    private IEnumerator ClearBoard() {
+        yield return ClearMonsters();
+        yield return ClearSpecialObjects();
+        yield return ClearMovementObjects();
+    }
+    private IEnumerator ClearMonsters() {
+        for (int monsterIndex = 0; monsterIndex < monstersParent.childCount; monsterIndex++) {
+            Destroy(monstersParent.GetChild(monsterIndex).gameObject);
+        }
+        yield break;
+    }
+    private IEnumerator ClearSpecialObjects() {
+        for (int specialObjIndex = 0; specialObjIndex < specialObjectParent.childCount; specialObjIndex++) {
+            Destroy(specialObjectParent.GetChild(specialObjIndex).gameObject);
+        }
+        yield break;
+    }
+    private IEnumerator ClearMovementObjects() {
+        for (int specialObjIndex = 0; specialObjIndex < movementObjectsParent.childCount; specialObjIndex++) {
+            Destroy(movementObjectsParent.GetChild(specialObjIndex).gameObject);
+        }
+        yield break;
+    }
     private void LaunchSpecialObject(Field field) {
         if (field.GetSpecialObject()) {
             SpecialObject specialObject = field.GetSpecialObject();
@@ -165,21 +191,7 @@ public class GameManager : MonoBehaviour {
         }
         return false;
     }
-    private void ClearMonsters() {
-        for (int monsterIndex = 0; monsterIndex < monstersParent.childCount; monsterIndex++) {
-            Destroy(monstersParent.GetChild(monsterIndex).gameObject);
-        }
-    }
-    private void ClearSpecialObjects() {
-        for (int specialObjIndex = 0; specialObjIndex < specialObjectParent.childCount; specialObjIndex++) {
-            Destroy(specialObjectParent.GetChild(specialObjIndex).gameObject);
-        }
-    }
-    private void ClearMovementObjects() {
-        for (int specialObjIndex = 0; specialObjIndex < movementObjectsParent.childCount; specialObjIndex++) {
-            Destroy(movementObjectsParent.GetChild(specialObjIndex).gameObject);
-        }
-    }
+
     public void SubstractGold(int value) {
         Player.SubstractGold(value);
         goldText.text = "Gold: " + Player.GetPlayerGold();
