@@ -83,6 +83,7 @@ public class GameManager : MonoBehaviour {
         switch (gameStatus) {
             case GameStatus.MoveMonsters:
                 StartCoroutine(ReleseMonsters());
+                Pointer.hold = false;
                 SetGameStatus(GameStatus.Wait);
                 break;
             case GameStatus.CalculatingScore:

@@ -16,8 +16,9 @@ MonoBehaviour:
   - objectToSpawn: {fileID: 7210646225149463093, guid: 24d764accc6105b48abcd6c7b4e301a3,
       type: 3}
     positions:
-    - {x: 7, y: 2}
+    - {x: 2, y: 2}
+    - {x: 0, y: 0}
   - objectToSpawn: {fileID: 4518836432964827300, guid: a6e88bb0122926749a302547ff90467f,
       type: 3}
     positions:
-    - {x: 0, y: 2}
+    - {x: 3, y: 2}

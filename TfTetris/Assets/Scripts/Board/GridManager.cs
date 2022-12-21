@@ -14,7 +14,7 @@ public class GridManager : MonoBehaviour
     [SerializeField] private float fieldsOffset;
 
     public static GridManager instance;
-
+    public bool testGrid = false;
     [SerializeField] private Field fieldPrefab;
     private void Awake() {
         instance = this;
@@ -58,16 +58,18 @@ public class GridManager : MonoBehaviour
     private void Update() {
         GetFieldByPointerPosition(Pointer.pointerPosition);
     }
-    private Field GetFieldByPointerPosition(Vector3 pointerPosition) {
+    public Field GetFieldByPointerPosition(Vector3 pointerPosition) {
         foreach (Field field in fields) {
             bool fieldOnMouse = pointerPosition.x > field.leftDownCorner.x + fieldsOffset && pointerPosition.x < field.rightDownCorner.x - fieldsOffset &&
                                 pointerPosition.z > field.leftDownCorner.z + +fieldsOffset && pointerPosition.z < field.leftUpperCorner.z - fieldsOffset;
             if (fieldOnMouse) {
-                field.ActiveOutline(true);
+                if(!testGrid)///FOR TESTING
+                    field.ActiveOutline(true);
                 return currentActiveField = field;
             }
             currentActiveField = null;
-            field.ActiveOutline(false);
+            if (!testGrid)
+                field.ActiveOutline(false);
         }
         return null;
     }
