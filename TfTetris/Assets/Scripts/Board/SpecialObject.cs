@@ -17,6 +17,7 @@ public class SpecialObject : MonoBehaviour
 
     [SerializeField] public float spawnTime;
     [SerializeField] private ParticleSystem spawnVFX;
+    [SerializeField] private ParticleSystem flameVFX;
     [SerializeField] private AnimationCurve animationCurve;
     [SerializeField] private float spawnHeight = 2f;
 
@@ -42,6 +43,7 @@ public class SpecialObject : MonoBehaviour
         }
         transform.position = worldPosition;
         spawnVFX.Play();
+        flameVFX.Play();
     }
     private void HealEnemy() {
         GameManager.instance.GetCurrentEnemy().HealEnemy(effectValue);

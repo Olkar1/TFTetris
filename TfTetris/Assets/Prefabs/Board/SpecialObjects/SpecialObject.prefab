@@ -4930,8 +4930,8 @@ ParticleSystem:
   ringBufferLoopRange: {x: 0, y: 1}
   emitterVelocityMode: 1
   looping: 1
-  prewarm: 1
-  playOnAwake: 1
+  prewarm: 0
+  playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 1
   startDelay:
@@ -9966,6 +9966,7 @@ MonoBehaviour:
   effectValue: 0
   spawnTime: 0.7
   spawnVFX: {fileID: 3482704605848538091}
+  flameVFX: {fileID: 4553099617770557366}
   animationCurve:
     serializedVersion: 2
     m_Curve:

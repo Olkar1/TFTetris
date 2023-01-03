@@ -82,7 +82,7 @@ public class GameManager : MonoBehaviour {
 
         foreach (var special in scenerio.scenerioObjects) {
             for (int i = 0; i < special.positions.Count; i++) {
-                SpecialObject specialObject = Instantiate(special.objectToSpawn);
+                SpecialObject specialObject = Instantiate(special.objectToSpawn,Vector3.zero,Quaternion.identity);
                 specialObject.transform.SetParent(specialObjectParent);
                 StartCoroutine(specialObject.SpawnSpecialObjectAnimation());
                 GridManager.instance.GetFieldByIndex((int)special.positions[i].x, (int)special.positions[i].y).SetSpecialObject(specialObject);
