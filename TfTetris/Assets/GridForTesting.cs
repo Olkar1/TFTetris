@@ -21,7 +21,7 @@ public class GridForTesting : MonoBehaviour
         grid = GetComponent<GridManager>();
     }
     private void Start() {
-        grid.SpawnGrid();
+        StartCoroutine(grid.SpawnGrid());
         grid.testGrid = true;
     }
     private void Update() {

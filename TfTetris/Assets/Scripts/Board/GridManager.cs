@@ -17,6 +17,7 @@ public class GridManager : MonoBehaviour
     public bool testGrid = false;
     [SerializeField] private Field fieldPrefab;
     [SerializeField] private float fieldSpawnDeley = 0.05f;
+    [SerializeField] private float boardSpawnTime = 5f;
     private void Awake() {
         instance = this;
     }
@@ -45,6 +46,7 @@ public class GridManager : MonoBehaviour
     public IEnumerator SpawnGrid(){
         fields.Clear();
         yield return new WaitForSeconds(0.5f);
+        float timePassed = 0f;
         for (int rowIndex = 0; rowIndex < columnNumber; rowIndex++) {
             for (int columnIndex = 0; columnIndex < rowNumber; columnIndex++) {
                 bool whiteField;
@@ -55,10 +57,14 @@ public class GridManager : MonoBehaviour
                     whiteField = false;
                 }
                 SpawnPosition(rowIndex, columnIndex, whiteField);
+                timePassed += fieldSpawnDeley;
                 yield return new WaitForSeconds(fieldSpawnDeley);
             }
         }
+        yield return new WaitForSeconds(boardSpawnTime - timePassed);
         sortedFields = ReturnSortedFields();
+        GameManager.instance.gameStartEvent.Invoke();
+        GameManager.instance.SetGameStatus(GameManager.GameStatus.PrepereNextRound);
     }
     private void Update() {
         GetFieldByPointerPosition(Pointer.pointerPosition);

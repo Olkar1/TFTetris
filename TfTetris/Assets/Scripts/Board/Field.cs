@@ -31,6 +31,7 @@ public class Field : MonoBehaviour
     public bool scored = false;
 
     [SerializeField] private ParticleSystem scoredVFX;
+    [SerializeField] private ParticleSystem spawnVFX;
     [SerializeField] private GameObject outline;
     [SerializeField] private MeshFilter meshFilter;
     [SerializeField] private MeshRenderer meshRenderer;
@@ -68,6 +69,7 @@ public class Field : MonoBehaviour
             yield return new WaitForSeconds(Time.deltaTime);
         }
         transform.position = startPos;
+        spawnVFX.Play();
     }
     public void ActiveOutline(bool active) {///CAN BE BETTER
         if(active && !outline.gameObject.activeSelf) {
@@ -92,6 +94,7 @@ public class Field : MonoBehaviour
             return;
         }
         specialObject.transform.position = middlePos;
+        specialObject.worldPosition = middlePos;
         specialObject.position = new Vector2(column, row);
         this.enemyAttack = specialObject;
     }

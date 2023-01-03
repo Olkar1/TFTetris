@@ -25,9 +25,7 @@ public class Shop : MonoBehaviour
         }
     }
     public void SpawnIcons() {
-        if (GameManager.instance.GetGameStatus() != GameManager.GameStatus.Shoping) {
-            return;
-        }
+
         float conteinerLeft = -containerWidth / 2;
         bool iconWidthSet = false;
         float iconWidth = 0;
@@ -54,6 +52,7 @@ public class Shop : MonoBehaviour
             iconRect.anchoredPosition = new Vector3(conteinerLeft + iconWidth / 2 + iconWidth * iconIndex + offset, 0,0) ;
         }
     }
+
     private MonsterShopIcon GetRandomMonster() {
         int i = Random.Range(0, monsterIcons.Count);
         return monsterIcons[i];

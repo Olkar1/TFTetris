@@ -35,9 +35,18 @@ public class GameManager : MonoBehaviour {
 
     public static GameManager instance;
 
+    public delegate void GameBegin();
+    public GameBegin gameStartEvent;
+
     private void Awake() {
         instance = this;
+
         enemyDeathEvent = SetRandomEnemy;
+
+        gameStartEvent += SetRandomEnemy;
+        gameStartEvent += SpawnShopIcons;
+
+        SetGameStatus(GameStatus.Wait);
     }
     public enum GameStatus {
         Shoping,
@@ -48,15 +57,11 @@ public class GameManager : MonoBehaviour {
     }
     void Start() {
         StartCoroutine(StartGame());
+
+
     }
     private IEnumerator StartGame() {
-        ///SpawnGrid
-        //grid.SpawnGrid();
         yield return StartCoroutine(grid.SpawnGrid());
-        Debug.LogError("GaMeStarted");
-        SetRandomEnemy();
-        shop.SpawnIcons();
-        SetGameStatus(GameStatus.PrepereNextRound);
     }
     public void SetGameStatus(GameStatus status) {
         gameStatus = status;
@@ -67,15 +72,26 @@ public class GameManager : MonoBehaviour {
             corutineActive.text = "";
         }
     }
-    private void SetBoardScenerio(BoardScenerio scenerio) {
-        if (!scenerio) { return; }
+    private void SpawnShopIcons() {
+        Debug.LogError("Spawn");
+        shop.SpawnIcons();
+    }
+    private IEnumerator SetBoardScenerio(BoardScenerio scenerio) {
+        if (!scenerio) { yield return null; }
+        float specialObjectSpawnTime = 0f;
+
         foreach (var special in scenerio.scenerioObjects) {
             for (int i = 0; i < special.positions.Count; i++) {
                 SpecialObject specialObject = Instantiate(special.objectToSpawn);
                 specialObject.transform.SetParent(specialObjectParent);
+                StartCoroutine(specialObject.SpawnSpecialObjectAnimation());
                 GridManager.instance.GetFieldByIndex((int)special.positions[i].x, (int)special.positions[i].y).SetSpecialObject(specialObject);
+                if (specialObjectSpawnTime == 0f) {
+                    specialObjectSpawnTime = specialObject.spawnTime;
+                }
             }
         }
+        yield return new WaitForSeconds(specialObjectSpawnTime + 0.3f); /// Doesnt match so 0.3f
     }
     void Update() {
         UpdateGameStatus();
@@ -153,7 +169,7 @@ public class GameManager : MonoBehaviour {
         timer.ResetTimer();
         Player.SetGold(playerInitialGold);
 
-        SetBoardScenerio(GetRandomScenerio());
+        yield return SetBoardScenerio(GetRandomScenerio());
         SetGameStatus(GameStatus.Shoping);
     }
     private IEnumerator ClearBoard() {
