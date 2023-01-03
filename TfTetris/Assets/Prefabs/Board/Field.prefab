@@ -330,8 +330,35 @@ MonoBehaviour:
   rightDownCorner: {x: 0, y: 0, z: 0}
   middlePos: {x: 0, y: 0, z: 0}
   coordinates: {x: 0, y: 0}
+  startPos: {x: 0, y: 0, z: 0}
   column: 0
   row: 0
+  spawnTime: 0.2
+  animationCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spawnHeight: 2
   currentMosnter: {fileID: 0}
   movementObject: {fileID: 0}
   enemyAttack: {fileID: 0}

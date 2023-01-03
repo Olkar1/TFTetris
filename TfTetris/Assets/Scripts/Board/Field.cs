@@ -14,9 +14,14 @@ public class Field : MonoBehaviour
     public Vector3 rightDownCorner;
     public Vector3 middlePos;
     public Vector2 coordinates;
+    public Vector3 startPos;
 
     public int column;
     public int row;
+
+    [SerializeField] private float spawnTime;
+    [SerializeField] private AnimationCurve animationCurve;
+    [SerializeField] private float spawnHeight = 2f;
 
     private float meshSize;
 
@@ -33,11 +38,15 @@ public class Field : MonoBehaviour
     [SerializeField] private Mesh blackFieldMesh;
     [SerializeField] private Mesh whiteFieldMesh;
 
+
     public void CreateField(int column, int row, bool white) {
         meshFilter.mesh = white ? whiteFieldMesh : blackFieldMesh;
         coordinates = new Vector2(row, column);
         MoveMeshToStartCorner();
         SetCornersPosition();
+        startPos = transform.position;
+        Debug.LogError("SpawnField");
+        StartCoroutine(SpawnAnim());
     }
     private void MoveMeshToStartCorner() {
         meshSize = meshRenderer.bounds.size.x;
@@ -49,6 +58,16 @@ public class Field : MonoBehaviour
         leftDownCorner = new Vector3(transform.position.x, 0,transform.position.z);
         rightDownCorner = transform.position + new Vector3(meshSize, 0, 0);
         middlePos = transform.position + new Vector3(meshSize/2,0, meshSize/2);
+    }
+    public IEnumerator SpawnAnim() {
+        float currentAnimTime = 0f;
+        while (currentAnimTime < spawnTime) {
+            float fieldYPos = animationCurve.Evaluate(1- currentAnimTime / spawnTime);
+            transform.position = new Vector3(startPos.x, startPos.y + spawnHeight * fieldYPos, startPos.z);
+            currentAnimTime += Time.deltaTime;
+            yield return new WaitForSeconds(Time.deltaTime);
+        }
+        transform.position = startPos;
     }
     public void ActiveOutline(bool active) {///CAN BE BETTER
         if(active && !outline.gameObject.activeSelf) {

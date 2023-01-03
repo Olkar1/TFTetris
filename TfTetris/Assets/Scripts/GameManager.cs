@@ -47,11 +47,13 @@ public class GameManager : MonoBehaviour {
         Wait
     }
     void Start() {
-        StartGame();
+        StartCoroutine(StartGame());
     }
-    private void StartGame() {
+    private IEnumerator StartGame() {
         ///SpawnGrid
-        grid.SpawnGrid();
+        //grid.SpawnGrid();
+        yield return StartCoroutine(grid.SpawnGrid());
+        Debug.LogError("GaMeStarted");
         SetRandomEnemy();
         shop.SpawnIcons();
         SetGameStatus(GameStatus.PrepereNextRound);
@@ -76,7 +78,6 @@ public class GameManager : MonoBehaviour {
         }
     }
     void Update() {
-        Debug.LogError(gameStatus);
         UpdateGameStatus();
     }
     private void UpdateGameStatus() {

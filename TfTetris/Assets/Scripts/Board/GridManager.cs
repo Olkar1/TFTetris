@@ -16,6 +16,7 @@ public class GridManager : MonoBehaviour
     public static GridManager instance;
     public bool testGrid = false;
     [SerializeField] private Field fieldPrefab;
+    [SerializeField] private float fieldSpawnDeley = 0.05f;
     private void Awake() {
         instance = this;
     }
@@ -41,16 +42,20 @@ public class GridManager : MonoBehaviour
         }
         return sortedFields;
     }
-    public void SpawnGrid(){
+    public IEnumerator SpawnGrid(){
         fields.Clear();
+        yield return new WaitForSeconds(0.5f);
         for (int rowIndex = 0; rowIndex < columnNumber; rowIndex++) {
             for (int columnIndex = 0; columnIndex < rowNumber; columnIndex++) {
+                bool whiteField;
                 if (rowIndex % 2 == 0 && columnIndex % 2 == 0 || rowIndex % 2 == 1 && columnIndex % 2 == 1) {
-                    SpawnPosition(rowIndex, columnIndex, true);
+                    whiteField = true;
                 }
                 else {
-                    SpawnPosition(rowIndex, columnIndex, false);
+                    whiteField = false;
                 }
+                SpawnPosition(rowIndex, columnIndex, whiteField);
+                yield return new WaitForSeconds(fieldSpawnDeley);
             }
         }
         sortedFields = ReturnSortedFields();
@@ -82,12 +87,7 @@ public class GridManager : MonoBehaviour
 
         var field = Instantiate(fieldPrefab, spawnPosition, Quaternion.identity);
 
-        if (white) {
-            field.CreateField(column,row,true);
-        }
-        else {
-            field.CreateField(column, row, false);
-        }
+        field.CreateField(column, row, white);
 
         field.transform.name = "(" + row.ToString() + "," + column.ToString() + ")";
         field.transform.SetParent(this.transform);
