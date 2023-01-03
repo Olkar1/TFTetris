@@ -196,16 +196,19 @@ public class GameManager : MonoBehaviour {
         Player.SubstractGold(value);
         goldText.text = "Gold: " + Player.GetPlayerGold();
     }
-    private Enemy GetRandomEnemy() {
+    private void SetRandomEnemy() {
         int enemyIndex = Random.Range(0, enemies.Count);
-        return enemies[enemyIndex];
+        SetCurrentEnemy(enemies[enemyIndex]);
     }
     private void SetCurrentEnemy(Enemy enemyToSet) {
-        currentEnemy = enemyToSet;
+        if (currentEnemy) {
+            Destroy(currentEnemy.gameObject);
+        }
+        currentEnemy = Instantiate(enemyToSet);
     }
-    public void SetRandomEnemy() {
+    public void SetNewEnemy() {
+        SetRandomEnemy();
         Player.playerHealth = 15;
-        currentEnemy = GetRandomEnemy();
         currentEnemy.ResetHealth();
         playerHealth.text = Player.playerHealth.ToString();
         enemyHealth.text = "Enemy health: " + currentEnemy.GetEnemyHealth().ToString();

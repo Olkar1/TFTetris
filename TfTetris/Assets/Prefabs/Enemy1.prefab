@@ -62,11 +62,31 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2618124307209507627, guid: 0c6bfbf5a3f88014281d7ff45d8e97e9,
+        type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 4300060, guid: b69174d668ba02d44b14a084b217670a, type: 3}
+    - target: {fileID: 3331439427697560289, guid: 0c6bfbf5a3f88014281d7ff45d8e97e9,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5007988268656595424, guid: 0c6bfbf5a3f88014281d7ff45d8e97e9,
         type: 3}
       propertyPath: m_Name
       value: Enemy1
       objectReference: {fileID: 0}
+    - target: {fileID: 8672317536330028273, guid: 0c6bfbf5a3f88014281d7ff45d8e97e9,
+        type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 4300046, guid: b6ef2f4d0154b2747860a3332fa05f97, type: 3}
+    - target: {fileID: 8672317536330028273, guid: 0c6bfbf5a3f88014281d7ff45d8e97e9,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 1a64cf0a23f83924f9debcb452685f6f, type: 2}
     - target: {fileID: 9066417433564736085, guid: 0c6bfbf5a3f88014281d7ff45d8e97e9,
         type: 3}
       propertyPath: initHealth

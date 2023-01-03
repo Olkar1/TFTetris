@@ -22,7 +22,7 @@ public class Player : MonoBehaviour{
         GameManager.instance.playerHealth.text = "Player health: " + playerHealth.ToString();
     }
     private static void KillPlayer() {
-        GameManager.instance.SetRandomEnemy();
+        GameManager.instance.SetNewEnemy();
     }
     public static int GetPlayerGold() {
         return gold;
