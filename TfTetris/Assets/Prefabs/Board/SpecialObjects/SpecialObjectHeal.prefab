@@ -192,6 +192,12 @@ PrefabInstance:
       propertyPath: objectPrefab
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 6010870149585712826, guid: 0e858a76426a2b448a9a43dc22e9bfab,
+        type: 3}
+      propertyPath: destroyedModel
+      value: 
+      objectReference: {fileID: 5544871539822108247, guid: c40526a9b858e344a9d7f0321d449cc7,
+        type: 3}
     - target: {fileID: 9001705210972296446, guid: 0e858a76426a2b448a9a43dc22e9bfab,
         type: 3}
       propertyPath: m_Name

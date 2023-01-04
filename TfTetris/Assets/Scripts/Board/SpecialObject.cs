@@ -20,7 +20,7 @@ public class SpecialObject : MonoBehaviour
     [SerializeField] private ParticleSystem flameVFX;
     [SerializeField] private AnimationCurve animationCurve;
     [SerializeField] private float spawnHeight = 2f;
-
+    [SerializeField] private GameObject destroyedModel;
     private void Start() {
         switch (splecialEffectStatus) {
             case SplecialEffectStatus.dmg:
@@ -46,8 +46,22 @@ public class SpecialObject : MonoBehaviour
     }
     private void HealEnemy() {
         GameManager.instance.GetCurrentEnemy().HealEnemy(effectValue);
+        Destroy(gameObject);
     }
     private void DmgPlayer() {
         Player.DmgPlayer(effectValue);
+        Destroy(gameObject);
+    }
+
+    public void DestroyObject() {
+        var model = Instantiate(destroyedModel,transform.position,Quaternion.identity);
+        for (int child = 0; child<model.transform.childCount; child++) {
+            Rigidbody modelRb = model.transform.GetChild(child).GetComponent<Rigidbody>();
+            modelRb.isKinematic = false;
+            modelRb.AddExplosionForce(15f, transform.position,2f);
+            modelRb.useGravity = true;
+            Destroy(model.transform.GetChild(child).gameObject, 3f);
+        }
+        Destroy(gameObject);
     }
 }

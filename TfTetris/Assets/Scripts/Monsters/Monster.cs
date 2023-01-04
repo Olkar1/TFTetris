@@ -93,7 +93,8 @@ public class Monster : ObjectOnField {
 
             spawnField.SetToScored();
             if (spawnField.GetSpecialObject()) {
-                Destroy(spawnField.GetSpecialObject().gameObject);
+                spawnField.GetSpecialObject().DestroyObject();
+                //Destroy(spawnField.GetSpecialObject().gameObject);
             }
             var attack = Instantiate(attackVisual, positionToSpawn,Quaternion.identity);
             attack.transform.SetParent(attackParent);
