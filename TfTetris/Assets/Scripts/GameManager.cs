@@ -73,7 +73,6 @@ public class GameManager : MonoBehaviour {
         }
     }
     private void SpawnShopIcons() {
-        Debug.LogError("Spawn");
         shop.SpawnIcons();
     }
     private IEnumerator SetBoardScenerio(BoardScenerio scenerio) {

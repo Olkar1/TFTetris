@@ -46,7 +46,6 @@ public class Field : MonoBehaviour
         MoveMeshToStartCorner();
         SetCornersPosition();
         startPos = transform.position;
-        Debug.LogError("SpawnField");
         StartCoroutine(SpawnAnim());
     }
     private void MoveMeshToStartCorner() {

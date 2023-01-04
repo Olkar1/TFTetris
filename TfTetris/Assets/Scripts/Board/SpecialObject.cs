@@ -38,7 +38,6 @@ public class SpecialObject : MonoBehaviour
             float fieldYPos = animationCurve.Evaluate(1 - currentAnimTime / spawnTime);
             transform.position = new Vector3(worldPosition.x, worldPosition.y + spawnHeight * fieldYPos, worldPosition.z);
             currentAnimTime += Time.deltaTime;
-            Debug.LogError(currentAnimTime);
             yield return new WaitForSeconds(Time.deltaTime);
         }
         transform.position = worldPosition;
