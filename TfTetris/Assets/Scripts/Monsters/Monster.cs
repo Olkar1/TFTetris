@@ -5,7 +5,7 @@ using UnityEngine;
 public class Monster : ObjectOnField {
 
     public radiationField radiationField;
-    public Transform attackParent;
+    //public Transform attackParent;
 
     public float moveSpeed;
 
@@ -89,20 +89,15 @@ public class Monster : ObjectOnField {
     }
     private void SpawnAttack() {
         ///TO REFACTOR
-        GameObject attackVisual = radiationField.visualization;
         foreach (Vector2 attackIndex in radiationField.affectedSqueres) {
             Vector2 currentPositionIndex = GridManager.instance.GetIndexByField(currentPositionField);
             Field spawnField = GridManager.instance.GetFieldByIndex((int)currentPositionIndex.x + (int)attackIndex.x,
                 (int)currentPositionIndex.y + (int)attackIndex.y);
             if (!spawnField) { continue; }
-            Vector3 positionToSpawn = spawnField.middlePos;
-
             spawnField.SetToScored();
             if (spawnField.GetSpecialObject()) {
                 spawnField.GetSpecialObject().DestroyObject();
             }
-            var attack = Instantiate(attackVisual, positionToSpawn,Quaternion.identity);
-            attack.transform.SetParent(attackParent);
         }
     }
 }

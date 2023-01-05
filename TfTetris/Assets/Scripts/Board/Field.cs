@@ -31,6 +31,7 @@ public class Field : MonoBehaviour
     public bool scored = false;
 
     [SerializeField] private ParticleSystem scoredVFX;
+    [SerializeField] private ParticleSystem conqueredVFX;
     [SerializeField] private ParticleSystem spawnVFX;
     [SerializeField] private GameObject outline;
     [SerializeField] private MeshFilter meshFilter;
@@ -111,6 +112,7 @@ public class Field : MonoBehaviour
     public void SetToScored() {
         scored = true;
         scoredVFX.Play();
+        conqueredVFX.Play();
     }
     public void ClearField() {
         scoredVFX.Stop();
