@@ -52,7 +52,7 @@ public class Monster : ObjectOnField {
                 break;
             }
         }
-        SetMonsterToPosition();
+        SetMonsterToCurrentPosition();
         SpawnAttack();
     }
     private bool IsJumpOverField(MovementModificationObject currentFieldModification, Field nextField) {
@@ -65,7 +65,7 @@ public class Monster : ObjectOnField {
         Field upfrontField = GridManager.instance.GetUpFrontField(currentPositionField);
         return upfrontField;
     }
-    private void SetMonsterToPosition() {
+    private void SetMonsterToCurrentPosition() {
         animator.SetBool("idle", true);
         currentPositionField.SetMonster(this);
     }

@@ -125,7 +125,7 @@ public class GridManager : MonoBehaviour
     }
     public Field GetNextEmptyField(Field searchField) {
         Field upfrontField = GetUpFrontField(searchField);
-        while (true) {
+        while (upfrontField) {
             if (upfrontField.IsEmpty()) {
                 return upfrontField;
             }
