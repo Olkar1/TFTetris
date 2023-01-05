@@ -3,66 +3,72 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Monster : ObjectOnField {
+
     public radiationField radiationField;
     public Transform attackParent;
+
     public float moveSpeed;
+
     [SerializeField] private Animator animator;
 
     public override void PutObjectOnField(Field currentField) {
         if (Input.GetMouseButton(0)) {
             if (currentField && currentField.IsEmpty()) {
-                transform.position = currentField.middlePos;
-                currentField.SetMonster(this);
-                currentPositionField = currentField;
-                isHold = false;
+                PutMonsterOnField(currentField);
                 Pointer.hold = false;
-                animator.SetBool("idle", true);
             }
             else {
                 Debug.LogWarning("Wrong place");
             }
         }
     }
+    private void PutMonsterOnField(Field field) {
+        transform.position = field.middlePos;
+        field.SetMonster(this);
+        currentPositionField = field;
+        isHold = false;
+
+        animator.SetBool("idle", true);
+    }
     public IEnumerator MoveMonster() {
         Field nextField = GridManager.instance.GetUpFrontField(currentPositionField);
-
         while (nextField) {
             MovementModificationObject currentFieldModification = currentPositionField.GetMovementModificationObject();
-            if (currentFieldModification && 
-                currentFieldModification.modificationType == MovementModificationObject.ModificationType.JumpOver &&
-               !nextField.IsEmpty()) {
+            if (IsJumpOverField(currentFieldModification,nextField)) {
                 nextField = GridManager.instance.GetNextEmptyField(nextField);
                 if (!nextField) {
                     break;
                 }
                 else {
-                    ///MoveToNextPosition
-                    //SetMonsterPosition(nextField);
                     yield return MoveMonsterToPosition(nextField,true);
                     nextField = GetNextField();
                 }
             }
             else if (nextField.IsEmpty()) {
-                ///MoveToNextPosition
                 yield return MoveMonsterToPosition(nextField,false);
-                //SetMonsterPosition(nextField);
                 nextField = GetNextField();
             }
             else {
                 break;
             }
-            //yield return new WaitForSeconds(0.5f);
         }
-        animator.SetBool("idle", true);
-        currentPositionField.SetMonster(this);
+        SetMonsterToPosition();
         SpawnAttack();
     }
-
+    private bool IsJumpOverField(MovementModificationObject currentFieldModification, Field nextField) {
+        bool isJumpOverField = currentFieldModification &&
+                currentFieldModification.modificationType == MovementModificationObject.ModificationType.JumpOver &&
+               !nextField.IsEmpty();
+        return isJumpOverField;
+    }
     private Field GetNextField() {
         Field upfrontField = GridManager.instance.GetUpFrontField(currentPositionField);
         return upfrontField;
     }
-
+    private void SetMonsterToPosition() {
+        animator.SetBool("idle", true);
+        currentPositionField.SetMonster(this);
+    }
     private IEnumerator MoveMonsterToPosition(Field position,bool flyOver) {
         if (!flyOver) {
             animator.SetBool("idle", false);
@@ -71,18 +77,18 @@ public class Monster : ObjectOnField {
             transform.position = new Vector3(transform.position.x, 2f, transform.position.z);
         }
         currentPositionField.SetMonster(null);
-        bool moveing = true;
-        while (moveing) {
+        bool moving = true;
+        while (moving) {
             transform.position = Vector3.MoveTowards(transform.position,position.middlePos,moveSpeed * Time.deltaTime);
             if (Vector3.Distance(transform.position,position.middlePos)<0.01f) {
-                moveing = false;
+                moving = false;
             }
             yield return new WaitForEndOfFrame();
         }
         currentPositionField = position;
     }
-
     private void SpawnAttack() {
+        ///TO REFACTOR
         GameObject attackVisual = radiationField.visualization;
         foreach (Vector2 attackIndex in radiationField.affectedSqueres) {
             Vector2 currentPositionIndex = GridManager.instance.GetIndexByField(currentPositionField);
@@ -94,7 +100,6 @@ public class Monster : ObjectOnField {
             spawnField.SetToScored();
             if (spawnField.GetSpecialObject()) {
                 spawnField.GetSpecialObject().DestroyObject();
-                //Destroy(spawnField.GetSpecialObject().gameObject);
             }
             var attack = Instantiate(attackVisual, positionToSpawn,Quaternion.identity);
             attack.transform.SetParent(attackParent);
