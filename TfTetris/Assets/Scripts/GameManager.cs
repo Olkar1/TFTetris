@@ -105,7 +105,7 @@ public class GameManager : MonoBehaviour {
                 break;
             case GameStatus.CalculatingScore:
                 SetGameStatus(GameStatus.Wait);
-                StartCoroutine(CalculateDamageAndLaunchSpecialObject());
+                StartCoroutine(LaunchSpecialObjectAndCalculateDamage());
                 break;
             case GameStatus.PrepereNextRound: /// SET TO CORUTINE
                 SetGameStatus(GameStatus.Wait);
@@ -130,7 +130,8 @@ public class GameManager : MonoBehaviour {
         SetGameStatus(GameStatus.CalculatingScore);
         yield break;
     }
-    private IEnumerator CalculateDamageAndLaunchSpecialObject() {
+    private IEnumerator LaunchSpecialObjectAndCalculateDamage() {
+        /// TERAZ TO 
         int rowSize = (int)grid.GetGridSize().x;
         List<Field> fields = grid.GetSortedFields();
         int totalDmg = 0;
@@ -195,8 +196,8 @@ public class GameManager : MonoBehaviour {
         yield break;
     }
     private void LaunchSpecialObject(Field field) {
-        if (field.GetSpecialObject()) {
-            SpecialObject specialObject = field.GetSpecialObject();
+        SpecialObject specialObject = field.GetSpecialObject();
+        if (specialObject) {
             specialObject.specialEffect();
         }
     }

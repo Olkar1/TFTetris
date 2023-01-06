@@ -8,6 +8,7 @@ public class Monster : ObjectOnField {
     //public Transform attackParent;
 
     public float moveSpeed;
+    [SerializeField] private Color attackColor;
 
     [SerializeField] private Animator animator;
 
@@ -94,7 +95,7 @@ public class Monster : ObjectOnField {
             Field spawnField = GridManager.instance.GetFieldByIndex((int)currentPositionIndex.x + (int)attackIndex.x,
                 (int)currentPositionIndex.y + (int)attackIndex.y);
             if (!spawnField) { continue; }
-            spawnField.SetToScored();
+            spawnField.SetToScored(attackColor);
             if (spawnField.GetSpecialObject()) {
                 spawnField.GetSpecialObject().DestroyObject();
             }

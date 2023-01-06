@@ -31,7 +31,7 @@ public class Field : MonoBehaviour
     public bool scored = false;
 
     [SerializeField] private ParticleSystem scoredVFX;
-    [SerializeField] private ParticleSystem conqueredVFX;
+    [SerializeField] private TakenFieldVfx conqueredVFX;
     [SerializeField] private ParticleSystem spawnVFX;
     [SerializeField] private GameObject outline;
     [SerializeField] private MeshFilter meshFilter;
@@ -109,10 +109,11 @@ public class Field : MonoBehaviour
     public Monster GetMonster() {
         return currentMosnter;
     }
-    public void SetToScored() {
+    public void SetToScored(Color colorOfConquer) {
         scored = true;
         scoredVFX.Play();
-        conqueredVFX.Play();
+        conqueredVFX.ChangeParticleColor(colorOfConquer);
+        conqueredVFX.PlayEffect();
     }
     public void ClearField() {
         scoredVFX.Stop();

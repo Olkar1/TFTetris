@@ -364,7 +364,7 @@ MonoBehaviour:
   enemyAttack: {fileID: 0}
   scored: 0
   scoredVFX: {fileID: 8316486137472360191}
-  conqueredVFX: {fileID: 1978454314493793065}
+  conqueredVFX: {fileID: 5187264688884302993}
   spawnVFX: {fileID: 5271215353528220255}
   outline: {fileID: 8387317261566278851}
   meshFilter: {fileID: 2621945566143360591}
@@ -10517,9 +10517,15 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1852832214014092247}
   m_PrefabAsset: {fileID: 0}
---- !u!198 &1978454314493793065 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 198849579184566526, guid: 92f0da8b0c715504b9fa6408f5f7f123,
+--- !u!114 &5187264688884302993 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6794323066036266822, guid: 92f0da8b0c715504b9fa6408f5f7f123,
     type: 3}
   m_PrefabInstance: {fileID: 1852832214014092247}
   m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b64eae0974c43084aae118e58ecea610, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

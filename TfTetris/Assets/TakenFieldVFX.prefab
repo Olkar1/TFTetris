@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4561850636708118}
   - component: {fileID: 198849579184566526}
   - component: {fileID: 199364473259733796}
+  - component: {fileID: 6794323066036266822}
   m_Layer: 0
   m_Name: TakenFieldVFX
   m_TagString: Untagged
@@ -4910,6 +4911,30 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!114 &6794323066036266822
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1029683450922114}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b64eae0974c43084aae118e58ecea610, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  particle: {fileID: 198849579184566526}
+  particlesToSwapColor:
+  - {fileID: 198849579184566526}
+  - {fileID: 198457212156619340}
+  - {fileID: 198437992651235270}
+  - {fileID: 198645082029399608}
+  - {fileID: 198640099645081294}
+  - {fileID: 198715015392029516}
+  - {fileID: 198586711444637450}
+  - {fileID: 198309138716261490}
+  - {fileID: 198674827734476228}
+  - {fileID: 198966404057645512}
 --- !u!1 &1280730264622566
 GameObject:
   m_ObjectHideFlags: 0

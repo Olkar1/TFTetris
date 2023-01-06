@@ -184,6 +184,21 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9176727281805745219, guid: 007b32867b23d704d931270a430fa6d3,
         type: 3}
+      propertyPath: attackColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9176727281805745219, guid: 007b32867b23d704d931270a430fa6d3,
+        type: 3}
+      propertyPath: attackColor.g
+      value: 0.0816164
+      objectReference: {fileID: 0}
+    - target: {fileID: 9176727281805745219, guid: 007b32867b23d704d931270a430fa6d3,
+        type: 3}
+      propertyPath: attackColor.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9176727281805745219, guid: 007b32867b23d704d931270a430fa6d3,
+        type: 3}
       propertyPath: radiationField
       value: 
       objectReference: {fileID: 11400000, guid: eca5a5ba854f5a54f8031a5ce2a3e028,
