@@ -134,6 +134,7 @@ public class GameManager : MonoBehaviour {
         /// TERAZ TO 
         int rowSize = (int)grid.GetGridSize().x;
         List<Field> fields = grid.GetSortedFields();
+        List<Field> currentRow = new List<Field>();
         int totalDmg = 0;
 
         int scoreInRow = 0;
@@ -143,14 +144,19 @@ public class GameManager : MonoBehaviour {
             LaunchSpecialObject(field);
             if (field.scored) {
                 scoreInRow++;
+                currentRow.Add(field);
             }
-            if (currentFieldIndex == rowSize) {
+            if (currentFieldIndex == rowSize-1) {
                 currentFieldIndex = -1;
-                if (ShouldDoubleScore(ref scoreInRow)) {
+                if (ShouldDoubleScore(scoreInRow)) {
                     scoreInRow = scoreInRow * 2;
+                    foreach (var currentRowField in currentRow) {
+                        currentRowField.ChangeScoredColor();
+                    }
                 }
                 totalDmg += scoreInRow;
                 scoreInRow = 0;
+                currentRow.Clear();
             }
         }
         currentEnemy.DamageEnemy(totalDmg);
@@ -201,7 +207,7 @@ public class GameManager : MonoBehaviour {
             specialObject.specialEffect();
         }
     }
-    private bool ShouldDoubleScore(ref int scoreInRow) {
+    private bool ShouldDoubleScore(int scoreInRow) {
         int rowSize = (int)grid.GetGridSize().x;
         if (scoreInRow == rowSize) {
             return true;

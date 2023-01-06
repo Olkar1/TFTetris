@@ -31,16 +31,24 @@ public class Field : MonoBehaviour
     public bool scored = false;
 
     [SerializeField] private ParticleSystem scoredVFX;
+    [SerializeField] private Color scoredInitColor;
+    [SerializeField] private Color doubleScoreColor;
+
     [SerializeField] private TakenFieldVfx conqueredVFX;
+
     [SerializeField] private ParticleSystem spawnVFX;
+
     [SerializeField] private GameObject outline;
+
     [SerializeField] private MeshFilter meshFilter;
     [SerializeField] private MeshRenderer meshRenderer;
     [SerializeField] private Transform modelTransform;
     [SerializeField] private Mesh blackFieldMesh;
     [SerializeField] private Mesh whiteFieldMesh;
 
-
+    private void Start() {
+        scoredInitColor = scoredVFX.startColor;
+    }
     public void CreateField(int column, int row, bool white) {
         meshFilter.mesh = white ? whiteFieldMesh : blackFieldMesh;
         coordinates = new Vector2(row, column);
@@ -115,8 +123,12 @@ public class Field : MonoBehaviour
         conqueredVFX.ChangeParticleColor(colorOfConquer);
         conqueredVFX.PlayEffect();
     }
+    public void ChangeScoredColor() {
+        scoredVFX.startColor = doubleScoreColor;
+    }
     public void ClearField() {
         scoredVFX.Stop();
+        scoredVFX.startColor = scoredInitColor;
         scored = false;
         SetMonster(null);
         SetMovementObject(null);

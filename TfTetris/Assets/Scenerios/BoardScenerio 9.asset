@@ -15,13 +15,7 @@ MonoBehaviour:
   scenerioObjects:
   - objectToSpawn: {fileID: 7210646225149463093, guid: 24d764accc6105b48abcd6c7b4e301a3,
       type: 3}
-    positions:
-    - {x: 1, y: 1}
-    - {x: 1, y: 3}
-    - {x: 2, y: 2}
-    - {x: 3, y: 3}
+    positions: []
   - objectToSpawn: {fileID: 4518836432964827300, guid: a6e88bb0122926749a302547ff90467f,
       type: 3}
-    positions:
-    - {x: 4, y: 2}
-    - {x: 4, y: 3}
+    positions: []
