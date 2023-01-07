@@ -130,16 +130,7 @@ MonoBehaviour:
     - model: {fileID: 8926484042661614965}
       id: 0
       isStickyNote: 0
-    - model: {fileID: 8926484042661614967}
-      id: 0
-      isStickyNote: 0
     - model: {fileID: 8926484042661614998}
-      id: 0
-      isStickyNote: 0
-    - model: {fileID: 8926484042661615039}
-      id: 0
-      isStickyNote: 0
-    - model: {fileID: 8926484042661615059}
       id: 0
       isStickyNote: 0
     - model: {fileID: 8926484042661615028}
@@ -154,31 +145,7 @@ MonoBehaviour:
     - model: {fileID: 8926484042661614969}
       id: 0
       isStickyNote: 0
-    - model: {fileID: 8926484042661615009}
-      id: 0
-      isStickyNote: 0
-    - model: {fileID: 8926484042661614984}
-      id: 0
-      isStickyNote: 0
-    - model: {fileID: 8926484042661614995}
-      id: 0
-      isStickyNote: 0
     - model: {fileID: 8926484042661615000}
-      id: 0
-      isStickyNote: 0
-    - model: {fileID: 8926484042661615003}
-      id: 0
-      isStickyNote: 0
-    - model: {fileID: 8926484042661615004}
-      id: 0
-      isStickyNote: 0
-    - model: {fileID: 8926484042661615006}
-      id: 0
-      isStickyNote: 0
-    - model: {fileID: 8926484042661615032}
-      id: 0
-      isStickyNote: 0
-    - model: {fileID: 8926484042661615074}
       id: 0
       isStickyNote: 0
     - model: {fileID: 8926484042661614726}
@@ -266,7 +233,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEngine.Color, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"r":4.386287212371826,"g":21.36125373840332,"b":0.0,"a":0.0}'
+      m_SerializableObject: '{"r":21.36125373840332,"g":0.0,"b":0.39798110723495486,"a":0.0}'
     min: -Infinity
     max: Infinity
     enumValues: []
@@ -3686,7 +3653,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEngine.Color, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"r":4.386287212371826,"g":21.36125373840332,"b":0.0,"a":0.0}'
+      m_SerializableObject: '{"r":21.36125373840332,"g":0.0,"b":0.39798110723495486,"a":0.0}'
     m_Space: 2147483647
   m_Property:
     name: o

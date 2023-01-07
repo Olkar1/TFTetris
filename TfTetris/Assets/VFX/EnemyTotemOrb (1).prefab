@@ -124,3 +124,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   specialEffect: {fileID: 3825662520891899515}
+  initSize: 0
+  animTime: 0.25

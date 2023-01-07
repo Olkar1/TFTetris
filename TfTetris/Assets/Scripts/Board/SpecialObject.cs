@@ -14,6 +14,8 @@ public class SpecialObject : MonoBehaviour
     public delegate void SpecialEffect();
     public SpecialEffect specialEffect;
     [SerializeField] private int effectValue;
+    [ColorUsageAttribute(true, true, 0f, 8f, 0.125f, 3f)]
+    [SerializeField] public Color effectColor;
 
     [SerializeField] public float spawnTime;
     [SerializeField] private ParticleSystem spawnVFX;

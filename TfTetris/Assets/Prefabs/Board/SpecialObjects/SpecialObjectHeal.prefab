@@ -194,6 +194,26 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6010870149585712826, guid: 0e858a76426a2b448a9a43dc22e9bfab,
         type: 3}
+      propertyPath: effectColor.a
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6010870149585712826, guid: 0e858a76426a2b448a9a43dc22e9bfab,
+        type: 3}
+      propertyPath: effectColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6010870149585712826, guid: 0e858a76426a2b448a9a43dc22e9bfab,
+        type: 3}
+      propertyPath: effectColor.g
+      value: 21.361254
+      objectReference: {fileID: 0}
+    - target: {fileID: 6010870149585712826, guid: 0e858a76426a2b448a9a43dc22e9bfab,
+        type: 3}
+      propertyPath: effectColor.r
+      value: 4.386287
+      objectReference: {fileID: 0}
+    - target: {fileID: 6010870149585712826, guid: 0e858a76426a2b448a9a43dc22e9bfab,
+        type: 3}
       propertyPath: destroyedModel
       value: 
       objectReference: {fileID: 5544871539822108247, guid: c40526a9b858e344a9d7f0321d449cc7,
