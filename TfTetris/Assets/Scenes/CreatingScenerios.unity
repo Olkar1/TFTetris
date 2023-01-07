@@ -191,6 +191,7 @@ MonoBehaviour:
     type: 3}
   healObject: {fileID: 4518836432964827300, guid: a6e88bb0122926749a302547ff90467f,
     type: 3}
+  newScenerioName: 
 --- !u!114 &1221051671
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -203,12 +204,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0408f22c5501c2c42bdc9488021da0fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  columnNumber: 8
-  rowNumber: 5
+  columnNumber: 9
+  rowNumber: 6
   fieldsOffset: 0
   testGrid: 0
   fieldPrefab: {fileID: 1944250996793825467, guid: 122115512fca16f41816738266701b28,
     type: 3}
+  fieldSpawnDeley: 0.05
+  boardSpawnTime: 5
 --- !u!4 &1221051672
 Transform:
   m_ObjectHideFlags: 0

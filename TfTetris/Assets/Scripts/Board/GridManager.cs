@@ -63,6 +63,7 @@ public class GridManager : MonoBehaviour
         }
         yield return new WaitForSeconds(boardSpawnTime - timePassed);
         sortedFields = ReturnSortedFields();
+        if (testGrid) { yield break; }
         GameManager.instance.gameStartEvent.Invoke();
         GameManager.instance.SetGameStatus(GameManager.GameStatus.PrepereNextRound);
     }
