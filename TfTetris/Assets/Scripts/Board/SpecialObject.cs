@@ -46,11 +46,11 @@ public class SpecialObject : MonoBehaviour
     }
     private void HealEnemy() {
         GameManager.instance.GetCurrentEnemy().HealEnemy(effectValue);
-        Destroy(gameObject);
+        DestroyObject();
     }
     private void DmgPlayer() {
         Player.DmgPlayer(effectValue);
-        Destroy(gameObject);
+        DestroyObject();
     }
 
     public void DestroyObject() {

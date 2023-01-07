@@ -205,6 +205,7 @@ public class GameManager : MonoBehaviour {
         SpecialObject specialObject = field.GetSpecialObject();
         if (specialObject) {
             specialObject.specialEffect();
+            field.visualEffectController.PlayEffect();
         }
     }
     private bool ShouldDoubleScore(int scoreInRow) {

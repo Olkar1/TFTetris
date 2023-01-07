@@ -8,12 +8,19 @@ public class Field : MonoBehaviour
     /// ORIGIN TRANSFORM IS IN THE LEFT DOWN CORNER
     /// AXIS swaped in inspector wtf why! TODO
     /// </summary>
+    [HideInInspector]
     public Vector3 leftUpperCorner;
+    [HideInInspector]
     public Vector3 leftDownCorner;
+    [HideInInspector]
     public Vector3 rightUpperCorner;
+    [HideInInspector]
     public Vector3 rightDownCorner;
+    [HideInInspector]
     public Vector3 middlePos;
+    [HideInInspector]
     public Vector2 coordinates;
+    [HideInInspector]
     public Vector3 startPos;
 
     public int column;
@@ -25,12 +32,13 @@ public class Field : MonoBehaviour
 
     private float meshSize;
 
-    [SerializeField] private Monster currentMosnter;
-    [SerializeField] private MovementModificationObject movementObject;
-    [SerializeField] private SpecialObject enemyAttack;
+    private Monster currentMosnter;
+    private MovementModificationObject movementObject;
+    private SpecialObject enemyAttack;
     public bool scored = false;
 
     [SerializeField] private ParticleSystem scoredVFX;
+    [SerializeField] public VisualEffectController visualEffectController;
     [SerializeField] private Color scoredInitColor;
     [SerializeField] private Color doubleScoreColor;
 
@@ -48,6 +56,7 @@ public class Field : MonoBehaviour
 
     private void Start() {
         scoredInitColor = scoredVFX.main.startColor.color;
+        visualEffectController.StopEffect();
     }
     public void CreateField(int column, int row, bool white) {
         meshFilter.mesh = white ? whiteFieldMesh : blackFieldMesh;
@@ -129,6 +138,7 @@ public class Field : MonoBehaviour
     }
     public void ClearField() {
         scoredVFX.Stop();
+        visualEffectController.StopEffect();
         var main = scoredVFX.main;
         main.startColor = scoredInitColor;
         scored = false;
