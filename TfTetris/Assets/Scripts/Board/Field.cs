@@ -47,7 +47,7 @@ public class Field : MonoBehaviour
     [SerializeField] private Mesh whiteFieldMesh;
 
     private void Start() {
-        scoredInitColor = scoredVFX.startColor;
+        scoredInitColor = scoredVFX.main.startColor.color;
     }
     public void CreateField(int column, int row, bool white) {
         meshFilter.mesh = white ? whiteFieldMesh : blackFieldMesh;
@@ -124,11 +124,13 @@ public class Field : MonoBehaviour
         conqueredVFX.PlayEffect();
     }
     public void ChangeScoredColor() {
-        scoredVFX.startColor = doubleScoreColor;
+        var main = scoredVFX.main;
+        main.startColor = doubleScoreColor;
     }
     public void ClearField() {
         scoredVFX.Stop();
-        scoredVFX.startColor = scoredInitColor;
+        var main = scoredVFX.main;
+        main.startColor = scoredInitColor;
         scored = false;
         SetMonster(null);
         SetMovementObject(null);

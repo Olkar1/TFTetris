@@ -12,9 +12,10 @@ public class TakenFieldVfx : MonoBehaviour
     }
     public void ChangeParticleColor(Color color) {
         foreach (var particle in particlesToSwapColor) {
-            Color initColor = particle.startColor;
+            Color initColor = particle.main.startColor.color; ;
             Color newColor = new Color(color.r,color.g,color.b,initColor.a);
-            particle.startColor = newColor;
+            var main = particle.main;
+            main.startColor = newColor;
         }
     }
 }
