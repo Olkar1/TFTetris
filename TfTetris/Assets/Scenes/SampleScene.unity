@@ -201,7 +201,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
   m_LocalRotation: {x: 0.41479367, y: -0, z: -0, w: 0.90991557}
-  m_LocalPosition: {x: -0.27, y: 3.63, z: -2.37}
+  m_LocalPosition: {x: 0, y: 3.63, z: -2.37}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1254,7 +1254,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!82 &1154247919
 AudioSource:
   m_ObjectHideFlags: 0
@@ -3589,7 +3589,7 @@ PrefabInstance:
         type: 3}
       propertyPath: enemies.Array.data[0]
       value: 
-      objectReference: {fileID: 6235713243451440699, guid: 540fd0595515cc44bb45af950af79d87,
+      objectReference: {fileID: 6235713243451440699, guid: bb7395eb69336664995fd741709fdfb8,
         type: 3}
     - target: {fileID: 6959868740583185173, guid: 3675c8a7756332646875899bccb02a7d,
         type: 3}
@@ -3699,6 +3699,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3483143162511616811, guid: b92c9d0cb44b10f4296d8ae68ec3135c,
+        type: 3}
+      propertyPath: rowNumber
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3483143162511616811, guid: b92c9d0cb44b10f4296d8ae68ec3135c,
+        type: 3}
+      propertyPath: columnNumber
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 3483143162511616811, guid: b92c9d0cb44b10f4296d8ae68ec3135c,
         type: 3}
