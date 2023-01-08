@@ -100,19 +100,19 @@ PrefabInstance:
     - target: {fileID: 9066417433564736085, guid: 0c6bfbf5a3f88014281d7ff45d8e97e9,
         type: 3}
       propertyPath: enemyScenerios.Array.size
-      value: 4
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 9066417433564736085, guid: 0c6bfbf5a3f88014281d7ff45d8e97e9,
         type: 3}
       propertyPath: enemyScenerios.Array.data[0]
       value: 
-      objectReference: {fileID: 11400000, guid: 64675f08b9de3d54ba01a10cd1879e33,
+      objectReference: {fileID: 11400000, guid: 50cc9f42680a200428fcc42067f44221,
         type: 2}
     - target: {fileID: 9066417433564736085, guid: 0c6bfbf5a3f88014281d7ff45d8e97e9,
         type: 3}
       propertyPath: enemyScenerios.Array.data[1]
       value: 
-      objectReference: {fileID: 11400000, guid: ad519dddc2e943e458d6388ee500d4d0,
+      objectReference: {fileID: 11400000, guid: dcd3d9e38d87ea640843328a79791b22,
         type: 2}
     - target: {fileID: 9066417433564736085, guid: 0c6bfbf5a3f88014281d7ff45d8e97e9,
         type: 3}

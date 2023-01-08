@@ -1,5 +1,102 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1577174027
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1577174028}
+  - component: {fileID: 1577174031}
+  - component: {fileID: 1577174030}
+  - component: {fileID: 1577174029}
+  m_Layer: 0
+  m_Name: TempBlockWall
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &1577174028
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1577174027}
+  m_LocalRotation: {x: -0, y: -0, z: 0.7071068, w: 0.7071068}
+  m_LocalPosition: {x: 1.928, y: 1.821, z: -0.529}
+  m_LocalScale: {x: 0.23, y: 0.7099999, z: 0.18}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6959868740583185172}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
+--- !u!33 &1577174031
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1577174027}
+  m_Mesh: {fileID: 4300000, guid: 36f67e014a6aba84eb044535cc6f3d48, type: 3}
+--- !u!23 &1577174030
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1577174027}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 42b64fdb315e3054ea757d8d1c4bcfa7, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &1577174029
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1577174027}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.9042816, y: 5.0471616, z: 0.8105936}
+  m_Center: {x: 0, y: 2.5235808, z: -0.0000014305115}
 --- !u!1 &1940665923381987438
 GameObject:
   m_ObjectHideFlags: 0
@@ -126,6 +223,7 @@ Transform:
   - {fileID: 3070468683153866799}
   - {fileID: 5963156144138391394}
   - {fileID: 2815771504764583180}
+  - {fileID: 1577174028}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -141,8 +239,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 461053bec85170e40962012b7b47dee2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerInitialGold: 15
-  currentEnemy: {fileID: 0}
+  playerInitialGold: 500
   playerHealth: {fileID: 0}
   enemyHealth: {fileID: 0}
   corutineActive: {fileID: 0}
@@ -152,12 +249,13 @@ MonoBehaviour:
   specialObjectParent: {fileID: 3070468683153866799}
   movementObjectsParent: {fileID: 5963156144138391394}
   enemies:
-  - {fileID: 6235713243451440699, guid: bb7395eb69336664995fd741709fdfb8, type: 3}
-  - {fileID: 6235713243451440699, guid: 5e69b8f5e3946464e94f7374447aa6ba, type: 3}
+  - {fileID: 6235713243451440699, guid: 8ae31eef83854b445b1f88afc0bfc1d4, type: 3}
   player: {fileID: 702655782}
   timer: {fileID: 0}
   shop: {fileID: 0}
   grid: {fileID: 0}
+  enemyStatue: {fileID: 0}
+  tempWall: {fileID: 1577174027}
 --- !u!1001 &7791617411960998115
 PrefabInstance:
   m_ObjectHideFlags: 0

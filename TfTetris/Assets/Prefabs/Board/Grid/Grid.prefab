@@ -25,7 +25,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1676824384}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 1.56, y: 0, z: 0.27}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -43,8 +43,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 500, y: 500, z: 1}
-  m_Center: {x: 0, y: 0, z: -1}
+  m_Size: {x: 10, y: 0.01, z: 10}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &3483143162511616812
 GameObject:
   m_ObjectHideFlags: 0
@@ -91,12 +91,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0408f22c5501c2c42bdc9488021da0fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  columnNumber: 8
-  rowNumber: 5
+  columnNumber: 9
+  rowNumber: 6
+  fieldsOffset: 0.04
+  testGrid: 0
   fieldPrefab: {fileID: 1944250996793825467, guid: 122115512fca16f41816738266701b28,
     type: 3}
-  fields: []
-  currentActiveField: {fileID: 0}
+  fieldSpawnDeley: 0.1
+  boardSpawnTime: 5
 --- !u!65 &15264739
 BoxCollider:
   m_ObjectHideFlags: 0
