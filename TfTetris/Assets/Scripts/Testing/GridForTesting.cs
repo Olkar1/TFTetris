@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
-
+#if UNITY_EDITOR
 public class GridForTesting : MonoBehaviour
 {
     private GridManager grid;
@@ -122,3 +122,4 @@ public class GridForTesting : MonoBehaviour
     }
 
 }
+#endif

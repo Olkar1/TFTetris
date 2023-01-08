@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEditor;
 using System.Collections;
 
-
+#if UNITY_EDITOR
 [CustomEditor(typeof(GridForTesting))]
 public class GridCustomInspector : Editor
 {
@@ -43,3 +43,4 @@ public class GridCustomInspector : Editor
         }
     }
 }
+#endif

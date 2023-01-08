@@ -1252,6 +1252,11 @@ PrefabInstance:
       objectReference: {fileID: 1393929327}
     - target: {fileID: 6959868740583185173, guid: 3675c8a7756332646875899bccb02a7d,
         type: 3}
+      propertyPath: playerInitialGold
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 6959868740583185173, guid: 3675c8a7756332646875899bccb02a7d,
+        type: 3}
       propertyPath: enemies.Array.size
       value: 2
       objectReference: {fileID: 0}

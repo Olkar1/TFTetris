@@ -7,11 +7,12 @@ using UnityEditor;
 [CreateAssetMenu(fileName = "BoardScenerio", menuName = "BoardScenerio/NewScenerio", order = 1)]
 public class BoardScenerio : ScriptableObject {
     public List<Scenerio> scenerioObjects;
-
+#if UNITY_EDITOR
     public void UpdateScenerio(List<Scenerio> newScenerios) {
         EditorUtility.SetDirty(this);
         scenerioObjects = newScenerios;
     }
+#endif
 }
 [Serializable]
 public struct Scenerio {
