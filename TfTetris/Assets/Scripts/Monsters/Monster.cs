@@ -14,7 +14,7 @@ public class Monster : ObjectOnField {
 
     public override void PutObjectOnField(Field currentField) {
         if (Input.GetMouseButton(0)) {
-            if (currentField && currentField.IsEmpty()) {
+            if (currentField && currentField.IsPlaceable() && currentField.IsEmpty()) {
                 PutMonsterOnField(currentField);
                 Pointer.hold = false;
             }

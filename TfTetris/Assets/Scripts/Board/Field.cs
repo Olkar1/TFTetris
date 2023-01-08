@@ -146,6 +146,9 @@ public class Field : MonoBehaviour
         SetMonster(null);
         SetMovementObject(null);
     }
+    public bool IsPlaceable() {
+        return coordinates.y < GridManager.rowsToPut;
+    }
     public IEnumerator MoveOrbToStatue() {
         yield return new WaitForSeconds(0.5f);
         Transform orbTransform = visualEffectController.transform;

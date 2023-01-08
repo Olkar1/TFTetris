@@ -40,6 +40,7 @@ public class GameManager : MonoBehaviour {
 
     public EnemyStatue enemyStatue;
 
+    [SerializeField] private GameObject tempWall;
     private void Awake() {
         instance = this;
 
@@ -59,19 +60,17 @@ public class GameManager : MonoBehaviour {
     }
     void Start() {
         StartCoroutine(StartGame());
-
-
     }
     private IEnumerator StartGame() {
         yield return StartCoroutine(grid.SpawnGrid());
     }
     public void SetGameStatus(GameStatus status) {
         gameStatus = status;
-        if (status == GameStatus.Wait) {
-            corutineActive.text = "Corutine active";
+        if (gameStatus == GameStatus.Shoping) {
+            tempWall.SetActive(true);
         }
         else {
-            corutineActive.text = "";
+            tempWall.SetActive(false);
         }
     }
     private void SpawnShopIcons() {

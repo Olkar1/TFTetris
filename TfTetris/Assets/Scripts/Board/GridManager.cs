@@ -18,6 +18,8 @@ public class GridManager : MonoBehaviour
     [SerializeField] private Field fieldPrefab;
     [SerializeField] private float fieldSpawnDeley = 0.05f;
     [SerializeField] private float boardSpawnTime = 5f;
+
+    public static int rowsToPut = 2;
     private void Awake() {
         instance = this;
     }
