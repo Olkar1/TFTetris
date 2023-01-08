@@ -64,6 +64,7 @@ public class Field : MonoBehaviour
         MoveMeshToStartCorner();
         SetCornersPosition();
         startPos = transform.position;
+        visualEffectController.SetInitPosition();
         StartCoroutine(SpawnAnim());
     }
     private void MoveMeshToStartCorner() {
@@ -144,6 +145,25 @@ public class Field : MonoBehaviour
         scored = false;
         SetMonster(null);
         SetMovementObject(null);
+    }
+    public IEnumerator MoveOrbToStatue() {
+        yield return new WaitForSeconds(0.5f);
+        Transform orbTransform = visualEffectController.transform;
+        Vector3 orbPosition = visualEffectController.transform.position;
+        Vector3 enemyStatuePosition = GameManager.instance.enemyStatue.eyeTransform.position;
+        while (Vector3.Distance(orbPosition, enemyStatuePosition) > 0.1f) {
+            orbTransform.position = Vector3.Lerp(orbTransform.position, enemyStatuePosition, 0.1f);
+            yield return new WaitForSeconds(Time.deltaTime);
+
+            if (Vector3.Distance(orbTransform.position, enemyStatuePosition) < 0.15f) {
+                break;
+            }
+        }
+
+        visualEffectController.StopEffect();
+        visualEffectController.ResetPosition();
+        yield break;
+
     }
     public bool IsEmpty() {
         bool empty = (currentMosnter == null && 

@@ -8,6 +8,7 @@ public class VisualEffectController : MonoBehaviour
     [SerializeField] private VisualEffect specialEffect;
     [SerializeField] private float initSize;
     [SerializeField] private float animTime;
+    private Vector3 initPos;
 
     private void Start() {
         initSize = specialEffect.GetFloat("Size");
@@ -32,5 +33,11 @@ public class VisualEffectController : MonoBehaviour
             yield return new WaitForSeconds(Time.deltaTime);
         }
 
+    }
+    public void SetInitPosition() {
+        initPos = transform.position;
+    }
+    public void ResetPosition() {
+        transform.position = initPos;
     }
 }

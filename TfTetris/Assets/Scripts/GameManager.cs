@@ -38,6 +38,8 @@ public class GameManager : MonoBehaviour {
     public delegate void GameBegin();
     public GameBegin gameStartEvent;
 
+    public EnemyStatue enemyStatue;
+
     private void Awake() {
         instance = this;
 
@@ -141,7 +143,7 @@ public class GameManager : MonoBehaviour {
         int currentFieldIndex = -1;
         foreach (var field in fields) {
             currentFieldIndex++;
-            LaunchSpecialObject(field);
+            yield return StartCoroutine(LaunchSpecialObject(field));
             if (field.scored) {
                 scoreInRow++;
                 currentRow.Add(field);
@@ -201,12 +203,14 @@ public class GameManager : MonoBehaviour {
         }
         yield break;
     }
-    private void LaunchSpecialObject(Field field) {
+    private IEnumerator LaunchSpecialObject(Field field) {
         SpecialObject specialObject = field.GetSpecialObject();
         if (specialObject) {
             specialObject.specialEffect();
             field.visualEffectController.PlayEffect(specialObject.effectColor);
+            yield return StartCoroutine(field.MoveOrbToStatue());
         }
+        yield break;
     }
     private bool ShouldDoubleScore(int scoreInRow) {
         int rowSize = (int)grid.GetGridSize().x;
@@ -215,7 +219,6 @@ public class GameManager : MonoBehaviour {
         }
         return false;
     }
-
     public void SubstractGold(int value) {
         Player.SubstractGold(value);
         goldText.text = "Gold: " + Player.GetPlayerGold();
