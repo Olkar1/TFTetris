@@ -17,6 +17,7 @@ public class VisualEffectController : MonoBehaviour
         specialEffect.Stop();
     }
     public void PlayEffect(Color effectColor) {
+        specialEffect.enabled = true;
         StartCoroutine(ChangeSize());
         specialEffect.SetVector4("Color", effectColor);
         specialEffect.Play();
@@ -38,6 +39,9 @@ public class VisualEffectController : MonoBehaviour
         initPos = transform.position;
     }
     public void ResetPosition() {
+        specialEffect.Stop();
+        specialEffect.enabled = false;
         transform.position = initPos;
+
     }
 }

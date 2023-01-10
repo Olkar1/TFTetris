@@ -158,13 +158,14 @@ public class Field : MonoBehaviour
             orbTransform.position = Vector3.Lerp(orbTransform.position, enemyStatuePosition, 0.1f);
             yield return new WaitForSeconds(Time.deltaTime);
 
-            if (Vector3.Distance(orbTransform.position, enemyStatuePosition) < 0.15f) {
+            if (Vector3.Distance(orbTransform.position, enemyStatuePosition) < 0.05f) {
                 break;
             }
         }
 
         visualEffectController.StopEffect();
         visualEffectController.ResetPosition();
+        GameManager.instance.enemyStatue.PlayHitEffect();
         yield break;
 
     }

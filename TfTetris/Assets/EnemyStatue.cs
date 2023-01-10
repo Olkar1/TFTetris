@@ -9,6 +9,7 @@ public class EnemyStatue : MonoBehaviour
     [SerializeField] private float topIntensity;
     [SerializeField] private float bottomIntensity;
     [SerializeField] private float changeSpeed;
+    [SerializeField] private ParticleSystem hitEffect;
     public Transform eyeTransform;
     private bool increesing = true;
     private void Awake() {
@@ -33,5 +34,7 @@ public class EnemyStatue : MonoBehaviour
             light.intensity -= Time.deltaTime * changeSpeed;
         }
     }
-
+    public void PlayHitEffect() {
+        hitEffect.Play();
+    }
 }
